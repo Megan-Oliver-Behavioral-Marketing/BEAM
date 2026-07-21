@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>B.E.A.M Diagnostic Worksheet — Megan Oliver</title>
+<meta name="description" content="Use the BEAM diagnostic worksheet to identify the action, barrier, emotional state, decision moment, and intervention behind a stalled behavior.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --void: #0D0D0D;
+    --void-soft: #1A1A1A;
+    --void-mid: #252525;
+    --surface: #F5F2ED;
+    --signal: #C8F04A;
+    --signal-dim: #A8CC3A;
+    --text: #F5F2ED;
+    --text-muted: #8A8478;
+    --text-dim: #5C5850;
+    --rule: rgba(245,242,237,0.1);
+    --rule-strong: rgba(245,242,237,0.2);
+    --b: #4A9EFF;
+    --e: #FF6B6B;
+    --a: #FFB347;
+    --m: #A78BFA;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--void);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.6;
+  }
+  button, input, textarea { font: inherit; }
+  .wrap { width: min(1080px, calc(100% - 56px)); margin: 0 auto; }
+
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    padding: 20px 0;
+    background: rgba(13,13,13,.96);
+    border-bottom: 1px solid var(--rule);
+    backdrop-filter: blur(12px);
+  }
+  .nav-inner, .footer-inner, .action-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+  }
+  .nav-mark, .eyebrow, .step-kicker, .field-label, .option-label,
+  .save-state, .footer-copy, .text-link, .button {
+    font-family: 'DM Mono', monospace;
+    text-transform: uppercase;
+    letter-spacing: .1em;
+  }
+  .nav-mark { color: var(--text-muted); font-size: 13px; }
+  .nav-mark strong { color: var(--signal); font-weight: 500; }
+  .text-link {
+    color: var(--text-muted);
+    font-size: 11px;
+    text-decoration: none;
+    border-bottom: 1px solid var(--text-dim);
+  }
+  .text-link:hover, .text-link:focus-visible { color: var(--signal); border-color: var(--signal); }
+
+  .hero { padding: 88px 0 64px; border-bottom: 1px solid var(--rule); }
+  .eyebrow { color: var(--text-dim); font-size: 11px; margin-bottom: 26px; }
+  .eyebrow::before {
+    content: "";
+    display: inline-block;
+    width: 24px;
+    height: 1px;
+    margin-right: 12px;
+    vertical-align: middle;
+    background: var(--text-dim);
+  }
+  h1, h2, h3 { font-family: 'DM Serif Display', serif; font-weight: 400; }
+  h1 { font-size: clamp(48px, 8vw, 88px); line-height: .98; letter-spacing: -.02em; max-width: 10ch; }
+  h1 em { color: var(--signal); font-weight: 400; }
+  .hero-grid { display: grid; grid-template-columns: 1.25fr .75fr; gap: 64px; align-items: end; }
+  .hero-copy { color: var(--text-muted); font-size: 17px; max-width: 44ch; }
+  .hero-copy strong { color: var(--text); font-weight: 500; }
+
+  .progress-shell { padding: 24px 0; border-bottom: 1px solid var(--rule); background: var(--void-soft); }
+  .progress-list { display: grid; grid-template-columns: repeat(6, 1fr); gap: 8px; list-style: none; }
+  .progress-list a {
+    display: block;
+    padding: 12px 10px;
+    color: var(--text-dim);
+    border: 1px solid var(--rule);
+    font: 10px/1.25 'DM Mono', monospace;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: border-color .15s, color .15s, background .15s;
+  }
+  .progress-list a:hover, .progress-list a:focus-visible { color: var(--text); border-color: var(--rule-strong); }
+  .progress-list a.complete { color: var(--signal); border-color: rgba(200,240,74,.35); background: rgba(200,240,74,.04); }
+
+  main { padding: 64px 0 96px; }
+  .worksheet-intro {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    margin-bottom: 48px;
+  }
+  .worksheet-intro h2 { font-size: clamp(30px, 4vw, 44px); line-height: 1.05; }
+  .worksheet-intro p { color: var(--text-muted); font-size: 15px; max-width: 55ch; }
+  .worksheet-intro strong { color: var(--text); font-weight: 500; }
+
+  .diagnostic-step {
+    scroll-margin-top: 150px;
+    display: grid;
+    grid-template-columns: 210px 1fr;
+    border-top: 1px solid var(--rule-strong);
+    padding: 56px 0 64px;
+  }
+  .step-marker { padding-right: 40px; }
+  .step-number { display: block; font: 52px/1 'DM Serif Display', serif; margin-bottom: 12px; }
+  .step-kicker { color: var(--text-dim); font-size: 10px; }
+  .step-action .step-number { color: var(--a); }
+  .step-barrier .step-number { color: var(--b); }
+  .step-emotion .step-number { color: var(--e); }
+  .step-moment .step-number { color: var(--m); }
+  .step-intervention .step-number { color: var(--signal); }
+  .step-test .step-number { color: var(--text); }
+
+  .step-content h2 { font-size: clamp(30px, 4vw, 44px); line-height: 1.08; margin-bottom: 12px; }
+  .step-lead { color: var(--text-muted); max-width: 64ch; margin-bottom: 34px; }
+  .field { margin-bottom: 30px; }
+  .field:last-child { margin-bottom: 0; }
+  .field-label { display: block; color: var(--text-muted); font-size: 10px; margin-bottom: 10px; }
+  .field-help { color: var(--text-dim); font-size: 13px; margin: -3px 0 12px; }
+  input[type="text"], textarea {
+    width: 100%;
+    color: var(--text);
+    background: var(--void-soft);
+    border: 1px solid var(--rule-strong);
+    border-radius: 0;
+    padding: 16px 18px;
+    outline: none;
+    transition: border-color .15s, background .15s;
+  }
+  textarea { min-height: 112px; resize: vertical; }
+  input[type="text"]:focus, textarea:focus { border-color: var(--signal); background: var(--void-mid); }
+  ::placeholder { color: var(--text-dim); opacity: 1; }
+
+  .option-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .option-grid.three { grid-template-columns: repeat(3, 1fr); }
+  .option { position: relative; }
+  .option input { position: absolute; opacity: 0; pointer-events: none; }
+  .option-card {
+    display: block;
+    height: 100%;
+    min-height: 112px;
+    padding: 20px;
+    background: var(--void-soft);
+    border: 1px solid var(--rule-strong);
+    cursor: pointer;
+    transition: border-color .15s, background .15s, transform .15s;
+  }
+  .option-card:hover { border-color: rgba(245,242,237,.35); transform: translateY(-1px); }
+  .option input:focus-visible + .option-card { outline: 2px solid var(--signal); outline-offset: 3px; }
+  .option input:checked + .option-card { border-color: var(--signal); background: rgba(200,240,74,.06); }
+  .option-label { display: block; color: var(--text); font-size: 11px; margin-bottom: 8px; }
+  .option-copy { display: block; color: var(--text-muted); font-size: 13px; line-height: 1.55; }
+  .option input:checked + .option-card .option-label { color: var(--signal); }
+
+  .moment-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .hypothesis {
+    padding: 28px;
+    background: var(--void-soft);
+    border-left: 3px solid var(--signal);
+  }
+  .hypothesis p { color: var(--text-muted); font-family: 'DM Serif Display', serif; font-size: 21px; font-style: italic; line-height: 1.5; }
+
+  .action-bar {
+    position: sticky;
+    bottom: 0;
+    z-index: 40;
+    padding: 16px 0;
+    background: rgba(13,13,13,.96);
+    border-top: 1px solid var(--rule-strong);
+    backdrop-filter: blur(12px);
+  }
+  .button-group { display: flex; gap: 10px; flex-wrap: wrap; }
+  .button {
+    appearance: none;
+    border: 1px solid var(--signal);
+    padding: 13px 18px;
+    color: var(--void);
+    background: var(--signal);
+    font-size: 10px;
+    cursor: pointer;
+  }
+  .button:hover, .button:focus-visible { background: var(--signal-dim); border-color: var(--signal-dim); }
+  .button.secondary { color: var(--text-muted); background: transparent; border-color: var(--rule-strong); }
+  .button.secondary:hover, .button.secondary:focus-visible { color: var(--text); border-color: var(--text-muted); }
+  .save-state { color: var(--text-dim); font-size: 10px; }
+  .save-state.saved { color: var(--signal); }
+
+  footer { padding: 32px 0; border-top: 1px solid var(--rule); }
+  .footer-copy { color: var(--text-dim); font-size: 11px; }
+
+  @media (max-width: 800px) {
+    .hero-grid, .worksheet-intro { grid-template-columns: 1fr; gap: 28px; }
+    .progress-list { grid-template-columns: repeat(3, 1fr); }
+    .diagnostic-step { grid-template-columns: 1fr; gap: 28px; }
+    .step-marker { padding-right: 0; }
+    .option-grid.three { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 560px) {
+    .wrap { width: min(100% - 36px, 1080px); }
+    nav { position: static; }
+    .nav-inner { align-items: flex-start; }
+    .nav-mark { max-width: 20ch; }
+    .hero { padding: 64px 0 52px; }
+    h1 { font-size: 46px; }
+    .progress-shell { display: none; }
+    main { padding-top: 48px; }
+    .option-grid, .option-grid.three, .moment-grid { grid-template-columns: 1fr; }
+    .action-bar .wrap { align-items: flex-start; flex-direction: column; }
+    .footer-inner { align-items: flex-start; flex-direction: column; }
+  }
+
+  @media print {
+    :root { --text: #111; --text-muted: #444; --text-dim: #666; --rule: #ddd; --rule-strong: #bbb; }
+    body { background: #fff; color: #111; font-size: 11pt; }
+    nav, .progress-shell, .action-bar, footer { display: none !important; }
+    .wrap { width: 100%; max-width: none; padding: 0; }
+    .hero { padding: 0 0 24px; }
+    .hero-grid { grid-template-columns: 1fr 1fr; }
+    h1 { font-size: 42pt; }
+    main { padding: 24px 0 0; }
+    .worksheet-intro { margin-bottom: 12px; }
+    .diagnostic-step { grid-template-columns: 120px 1fr; padding: 24px 0; break-inside: avoid; }
+    input[type="text"], textarea { color: #111; background: #fff; border-color: #aaa; min-height: 40px; }
+    .option-card, .hypothesis { color: #111; background: #fff; border-color: #aaa; }
+    .option input:checked + .option-card { background: #f2f2f2; border: 2px solid #111; }
+    .option input:not(:checked) + .option-card { opacity: .45; }
+    .option-copy, .hypothesis p { color: #444; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap nav-inner">
+    <div class="nav-mark"><strong>B.E.A.M</strong> — Diagnostic Worksheet</div>
+    <a class="text-link" href="./index.html">Return to framework →</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="eyebrow">Behavioral Diagnostic Framework</div>
+    <div class="hero-grid">
+      <h1>Find what’s <em>blocking</em> action.</h1>
+      <p class="hero-copy">Use this worksheet to turn a stalled behavior into a <strong>working diagnosis</strong>—then design an intervention you can actually test.</p>
+    </div>
+  </div>
+</header>
+
+<div class="progress-shell" aria-label="Worksheet progress">
+  <div class="wrap">
+    <ol class="progress-list">
+      <li><a href="#action" data-progress="action">01 Action</a></li>
+      <li><a href="#barrier" data-progress="barrier">02 Barrier</a></li>
+      <li><a href="#emotion" data-progress="emotion">03 Emotion</a></li>
+      <li><a href="#moment" data-progress="moment">04 Moment</a></li>
+      <li><a href="#intervention" data-progress="intervention">05 Intervention</a></li>
+      <li><a href="#test" data-progress="test">06 Test</a></li>
+    </ol>
+  </div>
+</div>
+
+<main>
+  <form class="wrap" id="beamWorksheet">
+    <section class="worksheet-intro">
+      <h2>Diagnose before you prescribe.</h2>
+      <p>Complete the worksheet using observed behavior wherever possible. If a conclusion is based on instinct rather than evidence, name it as an assumption. <strong>The goal is not certainty. It is a sharper hypothesis.</strong></p>
+    </section>
+
+    <section class="diagnostic-step step-action" id="action" data-section="action">
+      <div class="step-marker"><span class="step-number">A</span><span class="step-kicker">Define the action</span></div>
+      <div class="step-content">
+        <h2>What should be happening?</h2>
+        <p class="step-lead">Name one observable action—not awareness, engagement, or another broad outcome.</p>
+        <div class="field">
+          <label class="field-label" for="expectedAction">Expected action</label>
+          <input id="expectedAction" name="expectedAction" type="text" placeholder="Example: Submit the appointment request form">
+        </div>
+        <div class="field">
+          <label class="field-label" for="currentBehavior">What is happening instead?</label>
+          <textarea id="currentBehavior" name="currentBehavior" placeholder="Describe the behavior you can actually observe."></textarea>
+        </div>
+        <div class="field">
+          <span class="field-label">Evidence source</span>
+          <div class="option-grid three">
+            <label class="option"><input type="checkbox" name="evidence" value="Analytics"><span class="option-card"><span class="option-label">Analytics</span><span class="option-copy">Behavioral or performance data.</span></span></label>
+            <label class="option"><input type="checkbox" name="evidence" value="User feedback"><span class="option-card"><span class="option-label">User feedback</span><span class="option-copy">Interviews, surveys, or comments.</span></span></label>
+            <label class="option"><input type="checkbox" name="evidence" value="Observation"><span class="option-card"><span class="option-label">Observation</span><span class="option-copy">Recordings, testing, or direct review.</span></span></label>
+            <label class="option"><input type="checkbox" name="evidence" value="Research"><span class="option-card"><span class="option-label">Research</span><span class="option-copy">Relevant primary or secondary evidence.</span></span></label>
+            <label class="option"><input type="checkbox" name="evidence" value="Assumption"><span class="option-card"><span class="option-label">Assumption</span><span class="option-copy">A belief that still needs validation.</span></span></label>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="diagnostic-step step-barrier" id="barrier" data-section="barrier">
+      <div class="step-marker"><span class="step-number">B</span><span class="step-kicker">Name the barrier</span></div>
+      <div class="step-content">
+        <h2>What appears to be in the way?</h2>
+        <p class="step-lead">Select the strongest working diagnosis. If the evidence does not support one yet, choose unclear.</p>
+        <div class="field">
+          <div class="option-grid">
+            <label class="option"><input type="radio" name="barrierType" value="Ability"><span class="option-card"><span class="option-label">Ability</span><span class="option-copy">They cannot understand, locate, evaluate, or complete the action.</span></span></label>
+            <label class="option"><input type="radio" name="barrierType" value="Environment"><span class="option-card"><span class="option-label">Environment</span><span class="option-copy">The path, timing, visibility, or process works against the action.</span></span></label>
+            <label class="option"><input type="radio" name="barrierType" value="Motivation"><span class="option-card"><span class="option-label">Motivation</span><span class="option-copy">Acting does not feel relevant, worthwhile, or urgent right now.</span></span></label>
+            <label class="option"><input type="radio" name="barrierType" value="Unclear"><span class="option-card"><span class="option-label">Unclear</span><span class="option-copy">There is not enough evidence to diagnose the barrier yet.</span></span></label>
+          </div>
+        </div>
+        <div class="field">
+          <label class="field-label" for="barrierEvidence">What evidence supports this diagnosis?</label>
+          <textarea id="barrierEvidence" name="barrierEvidence"></textarea>
+        </div>
+        <div class="field">
+          <label class="field-label" for="alternativeExplanation">What else could explain the behavior?</label>
+          <textarea id="alternativeExplanation" name="alternativeExplanation" placeholder="Challenge the first explanation before committing to it."></textarea>
+        </div>
+      </div>
+    </section>
+
+    <section class="diagnostic-step step-emotion" id="emotion" data-section="emotion">
+      <div class="step-marker"><span class="step-number">E</span><span class="step-kicker">Read the state</span></div>
+      <div class="step-content">
+        <h2>What are they experiencing right now?</h2>
+        <p class="step-lead">Choose the emotional state most likely to influence this specific decision—not how the audience feels in general.</p>
+        <div class="field">
+          <div class="option-grid three">
+            <label class="option"><input type="radio" name="emotion" value="Confusion"><span class="option-card"><span class="option-label">Confusion</span><span class="option-copy">Slows action.</span></span></label>
+            <label class="option"><input type="radio" name="emotion" value="Overwhelm"><span class="option-card"><span class="option-label">Overwhelm</span><span class="option-copy">Delays action.</span></span></label>
+            <label class="option"><input type="radio" name="emotion" value="Anxiety"><span class="option-card"><span class="option-label">Anxiety</span><span class="option-copy">Avoids action.</span></span></label>
+            <label class="option"><input type="radio" name="emotion" value="Indifference"><span class="option-card"><span class="option-label">Indifference</span><span class="option-copy">Ignores action.</span></span></label>
+            <label class="option"><input type="radio" name="emotion" value="Uncertainty"><span class="option-card"><span class="option-label">Uncertainty</span><span class="option-copy">Hesitates before action.</span></span></label>
+            <label class="option"><input type="radio" name="emotion" value="Skepticism"><span class="option-card"><span class="option-label">Skepticism</span><span class="option-copy">Resists the ask.</span></span></label>
+            <label class="option"><input type="radio" name="emotion" value="Confidence"><span class="option-card"><span class="option-label">Confidence</span><span class="option-copy">Enables action.</span></span></label>
+            <label class="option"><input type="radio" name="emotion" value="Curiosity"><span class="option-card"><span class="option-label">Curiosity</span><span class="option-copy">Encourages exploration.</span></span></label>
+            <label class="option"><input type="radio" name="emotion" value="Other"><span class="option-card"><span class="option-label">Other</span><span class="option-copy">Name a more accurate state below.</span></span></label>
+          </div>
+        </div>
+        <div class="field">
+          <label class="field-label" for="emotionEvidence">What observable evidence suggests this state?</label>
+          <textarea id="emotionEvidence" name="emotionEvidence"></textarea>
+        </div>
+      </div>
+    </section>
+
+    <section class="diagnostic-step step-moment" id="moment" data-section="moment">
+      <div class="step-marker"><span class="step-number">M</span><span class="step-kicker">Examine the moment</span></div>
+      <div class="step-content">
+        <h2>What is true at the point of decision?</h2>
+        <p class="step-lead">Document the conditions surrounding the action. The same person can behave differently when the moment changes.</p>
+        <div class="moment-grid">
+          <div class="field"><label class="field-label" for="momentSee">What do they see?</label><textarea id="momentSee" name="momentSee"></textarea></div>
+          <div class="field"><label class="field-label" for="momentKnow">What do they know?</label><textarea id="momentKnow" name="momentKnow"></textarea></div>
+          <div class="field"><label class="field-label" for="momentUncertain">What remains uncertain?</label><textarea id="momentUncertain" name="momentUncertain"></textarea></div>
+          <div class="field"><label class="field-label" for="momentEffort">What effort is required?</label><textarea id="momentEffort" name="momentEffort"></textarea></div>
+          <div class="field"><label class="field-label" for="momentRisk">What feels at risk?</label><textarea id="momentRisk" name="momentRisk"></textarea></div>
+          <div class="field"><label class="field-label" for="momentCompetes">What competes for attention?</label><textarea id="momentCompetes" name="momentCompetes"></textarea></div>
+        </div>
+        <div class="field">
+          <label class="field-label" for="momentAssessment">Does the moment support or resist action—and why?</label>
+          <textarea id="momentAssessment" name="momentAssessment"></textarea>
+        </div>
+      </div>
+    </section>
+
+    <section class="diagnostic-step step-intervention" id="intervention" data-section="intervention">
+      <div class="step-marker"><span class="step-number">→</span><span class="step-kicker">Match the response</span></div>
+      <div class="step-content">
+        <h2>What intervention fits the diagnosis?</h2>
+        <p class="step-lead">Choose the response that addresses the barrier and emotional state—not the tactic you already wanted to use.</p>
+        <div class="field">
+          <div class="option-grid">
+            <label class="option"><input type="radio" name="intervention" value="Clarification"><span class="option-card"><span class="option-label">Clarification</span><span class="option-copy">Remove ambiguity, simplify the path, or reduce cognitive load.</span></span></label>
+            <label class="option"><input type="radio" name="intervention" value="Elevation"><span class="option-card"><span class="option-label">Elevation</span><span class="option-copy">Increase relevance, visibility, urgency, or perceived stakes.</span></span></label>
+            <label class="option"><input type="radio" name="intervention" value="Reinforcement"><span class="option-card"><span class="option-label">Reinforcement</span><span class="option-copy">Add proof, reassurance, validation, or confidence.</span></span></label>
+            <label class="option"><input type="radio" name="intervention" value="Connection"><span class="option-card"><span class="option-label">Connection</span><span class="option-copy">Build trust or emotional safety before asking for commitment.</span></span></label>
+          </div>
+        </div>
+        <div class="field"><label class="field-label" for="proposedIntervention">Proposed intervention</label><textarea id="proposedIntervention" name="proposedIntervention" placeholder="Describe the strategic response—not just the channel or asset."></textarea></div>
+        <div class="field"><label class="field-label" for="specificChange">What specifically will change?</label><textarea id="specificChange" name="specificChange"></textarea></div>
+      </div>
+    </section>
+
+    <section class="diagnostic-step step-test" id="test" data-section="test">
+      <div class="step-marker"><span class="step-number">✓</span><span class="step-kicker">Design the test</span></div>
+      <div class="step-content">
+        <h2>What would prove or disprove the diagnosis?</h2>
+        <p class="step-lead">BEAM produces a working diagnosis. The test determines whether it was useful.</p>
+        <div class="field hypothesis"><p>If we change the conditions around the decision moment, the expected action should become more likely because the diagnosed barrier has been reduced.</p></div>
+        <div class="field"><label class="field-label" for="hypothesis">Write the hypothesis</label><textarea id="hypothesis" name="hypothesis" placeholder="If we __________, then __________ will be more likely to __________ because __________."></textarea></div>
+        <div class="field"><label class="field-label" for="successMetric">Success metric</label><input id="successMetric" name="successMetric" type="text" placeholder="What measurable behavior indicates improvement?"></div>
+        <div class="field"><label class="field-label" for="result">Result or learning</label><textarea id="result" name="result" placeholder="Complete after the test: supported, rejected, inconclusive—and what you learned."></textarea></div>
+      </div>
+    </section>
+  </form>
+</main>
+
+<div class="action-bar">
+  <div class="wrap">
+    <div class="save-state" id="saveState" aria-live="polite">Your work stays in this browser</div>
+    <div class="button-group">
+      <button class="button secondary" type="button" id="resetButton">Clear worksheet</button>
+      <button class="button" type="button" id="printButton">Print / Save PDF</button>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="wrap footer-inner">
+    <div class="footer-copy">B.E.A.M Framework — © Megan Oliver 2026</div>
+    <a class="text-link" href="https://www.meganoliver.com" target="_blank" rel="noopener">meganoliver.com →</a>
+  </div>
+</footer>
+
+<script>
+  const form = document.getElementById('beamWorksheet');
+  const saveState = document.getElementById('saveState');
+  const storageKey = 'beam-diagnostic-worksheet-v1';
+  let saveTimer;
+
+  function serializeForm() {
+    const data = {};
+    form.querySelectorAll('input, textarea').forEach(field => {
+      if (field.type === 'checkbox') {
+        if (!Array.isArray(data[field.name])) data[field.name] = [];
+        if (field.checked) data[field.name].push(field.value);
+      } else if (field.type === 'radio') {
+        if (field.checked) data[field.name] = field.value;
+      } else {
+        data[field.name] = field.value;
+      }
+    });
+    return data;
+  }
+
+  function restoreForm() {
+    const saved = localStorage.getItem(storageKey);
+    if (!saved) return;
+    try {
+      const data = JSON.parse(saved);
+      form.querySelectorAll('input, textarea').forEach(field => {
+        if (field.type === 'checkbox') field.checked = (data[field.name] || []).includes(field.value);
+        else if (field.type === 'radio') field.checked = data[field.name] === field.value;
+        else if (data[field.name] !== undefined) field.value = data[field.name];
+      });
+      saveState.textContent = 'Saved work restored';
+      saveState.classList.add('saved');
+      updateProgress();
+    } catch (error) {
+      localStorage.removeItem(storageKey);
+    }
+  }
+
+  function saveForm() {
+    localStorage.setItem(storageKey, JSON.stringify(serializeForm()));
+    saveState.textContent = 'Saved in this browser';
+    saveState.classList.add('saved');
+    window.clearTimeout(saveTimer);
+    saveTimer = window.setTimeout(() => saveState.classList.remove('saved'), 1800);
+    updateProgress();
+  }
+
+  function updateProgress() {
+    document.querySelectorAll('[data-section]').forEach(section => {
+      const fields = [...section.querySelectorAll('input, textarea')];
+      const hasEntry = fields.some(field => {
+        if (field.type === 'checkbox' || field.type === 'radio') return field.checked;
+        return field.value.trim().length > 0;
+      });
+      const link = document.querySelector(`[data-progress="${section.dataset.section}"]`);
+      if (link) link.classList.toggle('complete', hasEntry);
+    });
+  }
+
+  form.addEventListener('input', saveForm);
+  form.addEventListener('change', saveForm);
+  document.getElementById('printButton').addEventListener('click', () => window.print());
+  document.getElementById('resetButton').addEventListener('click', () => {
+    if (!window.confirm('Clear every response in this worksheet? This cannot be undone.')) return;
+    form.reset();
+    localStorage.removeItem(storageKey);
+    saveState.textContent = 'Worksheet cleared';
+    saveState.classList.remove('saved');
+    updateProgress();
+  });
+
+  restoreForm();
+</script>
+</body>
+</html>
