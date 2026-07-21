@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BEAM in Practice: Environmental Barriers and Conversion</title>
+<meta name="description" content="See how the BEAM framework diagnoses an environmental barrier associated with a 17% increase in childcare tour conversion.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://megan-oliver-behavioral-marketing.github.io/BEAM/beam-in-practice-environmental-barrier-conversion.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="BEAM in Practice: Environmental Barriers and Conversion">
+<meta property="og:description" content="A worked behavioral diagnosis connected to a 17% conversion lift.">
+<meta property="og:url" content="https://megan-oliver-behavioral-marketing.github.io/BEAM/beam-in-practice-environmental-barrier-conversion.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "BEAM in Practice: Environmental Barriers and Conversion",
+  "description": "A worked BEAM diagnosis based on a childcare ambient-scent conversion case study.",
+  "author": {
+    "@type": "Person",
+    "@id": "https://www.meganoliver.com/#person",
+    "name": "Megan Oliver",
+    "url": "https://www.meganoliver.com"
+  },
+  "mainEntityOfPage": "https://megan-oliver-behavioral-marketing.github.io/BEAM/beam-in-practice-environmental-barrier-conversion.html",
+  "isPartOf": {
+    "@type": "WebSite",
+    "name": "BEAM Behavioral Diagnostic Framework",
+    "url": "https://megan-oliver-behavioral-marketing.github.io/BEAM/"
+  },
+  "citation": "https://www.meganoliver.com/Scent-Experiment-Case-Study.html",
+  "about": ["Environmental barriers", "Conversion strategy", "Sensory marketing", "Decision environment", "Behavioral marketing"]
+}
+</script>
+
+<style>
+  :root {
+    --void: #0D0D0D;
+    --void-soft: #1A1A1A;
+    --void-mid: #252525;
+    --signal: #C8F04A;
+    --signal-dim: #A8CC3A;
+    --text: #F5F2ED;
+    --text-muted: #8A8478;
+    --text-dim: #5C5850;
+    --rule: rgba(245,242,237,0.1);
+    --rule-strong: rgba(245,242,237,0.2);
+    --b: #4A9EFF;
+    --e: #FF6B6B;
+    --a: #FFB347;
+    --m: #A78BFA;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--void);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.7;
+  }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 28px; }
+  a { color: inherit; }
+
+  /* NAV */
+  nav {
+    border-bottom: 1px solid var(--rule);
+    padding: 20px 0;
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(13,13,13,0.96);
+    backdrop-filter: blur(12px);
+  }
+  .nav-inner {
+    display: flex; align-items: center; justify-content: space-between; gap: 24px;
+  }
+  .nav-mark {
+    font-family: 'DM Mono', monospace;
+    font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--text-muted); text-decoration: none;
+  }
+  .nav-mark strong { color: var(--signal); font-weight: 500; }
+  .nav-links {
+    display: flex; gap: 22px;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--text-muted);
+  }
+  .nav-links a { text-decoration: none; transition: color 0.15s; }
+  .nav-links a:hover { color: var(--signal); }
+
+  /* HERO */
+  .hero {
+    padding: 88px 0 72px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .hero-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--text-dim);
+    margin-bottom: 26px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .hero-label::before {
+    content: "";
+    display: inline-block;
+    width: 24px; height: 1px;
+    background: var(--text-dim);
+  }
+  h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(46px, 7vw, 78px);
+    line-height: 1; letter-spacing: -0.02em;
+    max-width: 13ch; margin-bottom: 28px;
+  }
+  h1 em { color: var(--signal); font-style: italic; }
+  .dek {
+    font-size: 18px; line-height: 1.65;
+    color: var(--text-muted); max-width: 61ch;
+  }
+  .dek strong { color: var(--text); font-weight: 500; }
+  .hero-actions {
+    display: flex; gap: 12px; flex-wrap: wrap; margin-top: 34px;
+  }
+  .btn {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase;
+    padding: 14px 20px;
+    border: 1.5px solid var(--signal);
+    background: var(--signal); color: var(--void);
+    text-decoration: none;
+    transition: background 0.15s, border-color 0.15s;
+  }
+  .btn:hover { background: var(--signal-dim); border-color: var(--signal-dim); }
+  .btn.secondary { background: transparent; color: var(--signal); }
+  .btn.secondary:hover { background: var(--signal); color: var(--void); }
+
+  /* ARTICLE LAYOUT */
+  .article-shell {
+    display: grid;
+    grid-template-columns: 220px minmax(0, 720px);
+    gap: 72px;
+    padding: 72px 0 96px;
+  }
+  .aside { position: sticky; top: 104px; align-self: start; }
+  .aside-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--text-dim); margin-bottom: 12px;
+  }
+  .aside p { font-size: 13px; color: var(--text-muted); margin-bottom: 24px; }
+  .toc { list-style: none; border-top: 1px solid var(--rule-strong); }
+  .toc a {
+    display: block; padding: 12px 0;
+    border-bottom: 1px solid var(--rule);
+    font-family: 'DM Mono', monospace;
+    font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase;
+    color: var(--text-muted); text-decoration: none;
+    transition: color 0.15s;
+  }
+  .toc a:hover { color: var(--signal); }
+
+  /* ARTICLE BODY */
+  .article h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 36px; line-height: 1.1;
+    margin: 50px 0 18px;
+    scroll-margin-top: 100px;
+  }
+  .article h2:first-child { margin-top: 0; }
+  .article p { font-size: 16px; color: var(--text-muted); margin-bottom: 20px; }
+  .article ul, .article ol {
+    padding-left: 22px; margin: 0 0 24px; color: var(--text-muted);
+  }
+  .article li { padding-left: 5px; margin-bottom: 10px; font-size: 15px; }
+  .article strong { color: var(--text); font-weight: 500; }
+  .article a { color: var(--signal); text-decoration: none; border-bottom: 1px solid rgba(200,240,74,0.3); }
+  .article a:hover { border-color: var(--signal); }
+
+  /* ANSWER BOX */
+  .answer {
+    padding: 24px 26px;
+    background: var(--void-soft);
+    border-left: 3px solid var(--signal);
+    margin-bottom: 36px;
+  }
+  .answer p { margin: 0; color: var(--text); font-size: 15px; }
+
+  /* PULL QUOTE */
+  .pullquote {
+    font-family: 'DM Serif Display', serif;
+    font-size: 26px; line-height: 1.4; font-style: italic;
+    padding: 34px;
+    border: 1px solid var(--rule-strong);
+    margin: 38px 0;
+    color: var(--text);
+  }
+
+  /* DIAGNOSIS TABLE */
+  .diagnosis {
+    border: 1px solid var(--rule-strong);
+    margin: 30px 0;
+  }
+  .diagnosis-row {
+    display: grid; grid-template-columns: 160px 1fr;
+    border-bottom: 1px solid var(--rule);
+    padding: 18px 20px;
+    align-items: start;
+    gap: 16px;
+  }
+  .diagnosis-row:last-child { border-bottom: none; }
+  .diagnosis-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--text-dim);
+    padding-top: 3px;
+  }
+  .diagnosis-row p { margin: 0; color: var(--text); font-size: 14px; line-height: 1.6; }
+
+  /* CTA BOX */
+  .article-cta {
+    margin-top: 58px; padding: 38px;
+    background: var(--void-soft);
+    border-top: 3px solid var(--signal);
+  }
+  .article-cta h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 30px; margin: 0 0 12px;
+  }
+  .article-cta p { font-size: 15px; color: var(--text-muted); max-width: 55ch; margin-bottom: 24px; }
+
+  /* FAQ */
+  .faq { padding: 72px 0; border-top: 1px solid var(--rule); }
+  .section-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--text-dim);
+    margin-bottom: 20px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .section-label::before {
+    content: "";
+    display: inline-block; width: 1px; height: 20px;
+    background: var(--text-dim);
+  }
+  .faq h2 { font-family: 'DM Serif Display', serif; font-size: 36px; margin-bottom: 14px; }
+  .faq-intro { font-size: 15px; color: var(--text-muted); max-width: 60ch; margin-bottom: 34px; }
+  .faq-list { border-top: 1px solid var(--rule-strong); }
+  .faq-item { border-bottom: 1px solid var(--rule-strong); }
+  .faq-item summary {
+    list-style: none;
+    display: flex; align-items: center; justify-content: space-between; gap: 24px;
+    padding: 24px 0; cursor: pointer;
+    font-family: 'DM Serif Display', serif;
+    font-size: 20px; line-height: 1.3;
+    color: var(--text); transition: color 0.15s;
+  }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary::after {
+    content: "+"; color: var(--signal);
+    font-family: 'DM Mono', monospace; font-size: 20px;
+    flex-shrink: 0; transition: transform 0.15s;
+  }
+  .faq-item[open] summary::after { transform: rotate(45deg); }
+  .faq-item summary:hover { color: var(--signal); }
+  .faq-answer { color: var(--text-muted); max-width: 70ch; padding: 0 0 26px; }
+  .faq-answer p { font-size: 15px; margin-bottom: 12px; }
+  .faq-answer p:last-child { margin-bottom: 0; }
+
+  /* RELATED */
+  .related {
+    padding: 72px 0;
+    border-top: 1px solid var(--rule);
+    background: var(--void-soft);
+  }
+  .related h2 { font-family: 'DM Serif Display', serif; font-size: 36px; margin-bottom: 28px; }
+  .related-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 1px; background: var(--rule-strong);
+    border: 1px solid var(--rule-strong);
+  }
+  .related-card {
+    padding: 28px; background: var(--void);
+    text-decoration: none; transition: background 0.15s;
+  }
+  .related-card:hover { background: var(--void-mid); }
+  .related-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--text-dim);
+  }
+  .related-card h3 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 22px; margin: 12px 0 8px; color: var(--text);
+    transition: color 0.15s;
+  }
+  .related-card:hover h3 { color: var(--signal); }
+  .related-card p { font-size: 13px; color: var(--text-muted); }
+
+  /* FOOTER */
+  footer { padding: 30px 0; border-top: 1px solid var(--rule); }
+  .foot-inner {
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 16px;
+  }
+  .foot-copy {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px; letter-spacing: 0.06em; text-transform: uppercase;
+    color: var(--text-dim);
+  }
+  .foot-link {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--text-muted); text-decoration: none; transition: color 0.15s;
+  }
+  .foot-link:hover { color: var(--signal); }
+
+  /* RESPONSIVE */
+  @media (max-width: 800px) {
+    .article-shell { grid-template-columns: 1fr; gap: 36px; }
+    .aside { position: static; }
+    .toc { display: grid; grid-template-columns: repeat(2, 1fr); }
+    .related-grid { grid-template-columns: 1fr; }
+    .nav-links { display: none; }
+  }
+  @media (max-width: 560px) {
+    .hero { padding: 64px 0 52px; }
+    h1 { font-size: 44px; }
+    .article-shell { padding: 52px 0 72px; }
+    .diagnosis-row { grid-template-columns: 1fr; gap: 6px; }
+    .toc { grid-template-columns: 1fr; }
+    .hero-actions { flex-direction: column; align-items: stretch; }
+    .btn { justify-content: center; }
+  }
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap nav-inner">
+    <a class="nav-mark" href="index.html"><strong>B.E.A.M</strong> — Behavioral Diagnostic Framework</a>
+    <div class="nav-links">
+      <a href="index.html">Framework</a>
+      <a href="beam-diagnostic-worksheet.html">Worksheet</a>
+      <a href="https://www.meganoliver.com">Megan Oliver ↗</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="hero-label">BEAM in Practice / Childcare</div>
+    <h1>The environment changed the <em>decision.</em></h1>
+    <p class="dek">Introducing one environmental variable at the entrance of a childcare facility was associated with a <strong>17% increase in tour conversion.</strong> BEAM shows why the physical decision environment mattered more than another message.</p>
+    <div class="hero-actions">
+      <a class="btn" href="https://www.meganoliver.com/Scent-Experiment-Case-Study.html">Read the full case study ↗</a>
+      <a class="btn secondary" href="beam-diagnostic-worksheet.html">Run your diagnosis →</a>
+    </div>
+  </div>
+</header>
+
+<main class="wrap article-shell">
+  <aside class="aside">
+    <div class="aside-label">Case diagnosis</div>
+    <p>This page applies BEAM to an existing measured case. The complete context and results live on MeganOliver.com.</p>
+    <ol class="toc">
+      <li><a href="#situation">Situation</a></li>
+      <li><a href="#diagnosis">BEAM diagnosis</a></li>
+      <li><a href="#intervention">Intervention</a></li>
+      <li><a href="#result">Result</a></li>
+      <li><a href="#lesson">Strategic lesson</a></li>
+    </ol>
+  </aside>
+
+  <article class="article">
+
+    <h2 id="situation">The situation</h2>
+    <div class="answer">
+      <p>A childcare facility had a strong product, qualified staff, consistent follow-up, and interested parents — but too many tours ended without enrollment. The formal sales process did not explain the gap.</p>
+    </div>
+    <p>The entrance was clean and professional, but emotionally neutral. Parents were evaluating more than services and credentials. They were deciding whether the facility felt safe, warm, clean, and trustworthy enough for their child.</p>
+
+    <h2 id="diagnosis">The BEAM diagnosis</h2>
+    <div class="diagnosis">
+      <div class="diagnosis-row">
+        <span class="diagnosis-tag">Action</span>
+        <p>Move from completing a childcare tour to enrollment.</p>
+      </div>
+      <div class="diagnosis-row">
+        <span class="diagnosis-tag">Barrier</span>
+        <p>Environment. The physical entrance communicated competence, but it did not support the warmth and trust required for the decision.</p>
+      </div>
+      <div class="diagnosis-row">
+        <span class="diagnosis-tag">Emotional state</span>
+        <p>Neutral evaluation needed to shift toward comfort, familiarity, cleanliness, and confidence.</p>
+      </div>
+      <div class="diagnosis-row">
+        <span class="diagnosis-tag">Moment</span>
+        <p>The first seconds after entering the facility, before the tour or formal sales conversation began.</p>
+      </div>
+      <div class="diagnosis-row">
+        <span class="diagnosis-tag">Intervention</span>
+        <p>Connection and reinforcement through a sensory environmental cue aligned with care, cleanliness, and home.</p>
+      </div>
+      <div class="diagnosis-row">
+        <span class="diagnosis-tag">Test</span>
+        <p>Compare tour conversion when the scent variable was present with conversion under otherwise unchanged conditions.</p>
+      </div>
+    </div>
+
+    <h2 id="intervention">What changed</h2>
+    <p>A subtle fresh-laundry scent was introduced at the facility entrance during parent tours. Staff, pricing, messaging, follow-up, and the tour process remained unchanged.</p>
+    <p>The intervention was selected because the barrier was not missing information. The environment was failing to reinforce the emotional qualities parents needed to experience before considering enrollment.</p>
+
+    <h2 id="result">The result</h2>
+    <div class="pullquote">Tour conversion increased by 17% after the environmental variable was introduced.</div>
+    <p>The result came without changing the formal message or sales process. The measured difference was associated with one change to the sensory conditions surrounding the first impression.</p>
+    <p><a href="https://www.meganoliver.com/Scent-Experiment-Case-Study.html"><strong>Read the complete case study, reasoning, and companion finding on MeganOliver.com →</strong></a></p>
+
+    <h2 id="lesson">The strategic lesson</h2>
+    <p>A decision starts before the call to action. Physical and digital environments shape what people notice, how much risk they perceive, and whether the offer feels consistent with the promise.</p>
+    <p>This does not mean adding scent — or any sensory cue — is a universal conversion tactic. The intervention only makes sense when it matches the specific barrier, audience, decision, and environment being diagnosed.</p>
+
+    <div class="article-cta">
+      <h2>Examine the environment around the action.</h2>
+      <p>Use the BEAM worksheet to identify what the person sees, knows, feels, risks, and must do at the moment of decision.</p>
+      <a class="btn" href="beam-diagnostic-worksheet.html" style="background: var(--void); color: var(--signal); border-color: var(--signal);">Open the worksheet →</a>
+    </div>
+
+  </article>
+</main>
+
+<section class="faq">
+  <div class="wrap">
+    <div class="section-label">Common Questions</div>
+    <h2>Environmental-barrier FAQs</h2>
+    <p class="faq-intro">What the scent experiment demonstrates — and what it does not prescribe.</p>
+    <div class="faq-list">
+
+      <details class="faq-item">
+        <summary>What is an environmental barrier in marketing?</summary>
+        <div class="faq-answer">
+          <p>An environmental barrier is a physical, digital, procedural, or situational condition that makes an intended action harder or less emotionally supported. Examples include excessive steps, poor timing, low visibility, distracting surroundings, or an experience that conflicts with the promise being made.</p>
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary>What changed in the childcare scent experiment?</summary>
+        <div class="faq-answer">
+          <p>A subtle fresh-laundry scent was introduced at the childcare facility entrance during parent tours. Staff, pricing, messaging, follow-up, and the tour process remained unchanged.</p>
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary>What was the result of the scent intervention?</summary>
+        <div class="faq-answer">
+          <p>Tour conversion increased by 17 percent after the environmental variable was introduced. The complete case study and context are published on MeganOliver.com.</p>
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary>Does this mean every business should use scent marketing?</summary>
+        <div class="faq-answer">
+          <p>No. The intervention was matched to a specific audience, emotional need, physical environment, and decision. BEAM is designed to diagnose the barrier first rather than copy a tactic that worked under different conditions.</p>
+        </div>
+      </details>
+
+    </div>
+  </div>
+</section>
+
+<section class="related">
+  <div class="wrap">
+    <h2>Continue the diagnosis</h2>
+    <div class="related-grid">
+      <a class="related-card" href="beam-in-practice-emotional-state-conversion.html">
+        <div class="related-tag">Companion case</div>
+        <h3>Emotional state: +24%</h3>
+        <p>See how the waiting experience influenced the decision before the tour.</p>
+      </a>
+      <a class="related-card" href="why-website-visitors-arent-converting.html">
+        <div class="related-tag">Conversion guide</div>
+        <h3>Why visitors aren't converting</h3>
+        <p>Diagnose ability, environmental, and motivational barriers.</p>
+      </a>
+      <a class="related-card" href="messaging-problem-or-behavioral-barrier.html">
+        <div class="related-tag">Decision guide</div>
+        <h3>Is messaging really the problem?</h3>
+        <p>Identify what better language would leave unchanged.</p>
+      </a>
+    </div>
+  </div>
+</section>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is an environmental barrier in marketing?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "An environmental barrier is a physical, digital, procedural, or situational condition that makes an intended action harder or less emotionally supported. Examples include excessive steps, poor timing, low visibility, distracting surroundings, or an experience that conflicts with the promise being made."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What changed in the childcare scent experiment?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A subtle fresh-laundry scent was introduced at the childcare facility entrance during parent tours. Staff, pricing, messaging, follow-up, and the tour process remained unchanged."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What was the result of the scent intervention?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Tour conversion increased by 17 percent after the environmental variable was introduced. The complete case study and context are published on MeganOliver.com."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does this mean every business should use scent marketing?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. The intervention was matched to a specific audience, emotional need, physical environment, and decision. BEAM is designed to diagnose the barrier first rather than copy a tactic that worked under different conditions."
+      }
+    }
+  ]
+}
+</script>
+
+<footer>
+  <div class="wrap foot-inner">
+    <div class="foot-copy">B.E.A.M Framework — © Megan Oliver 2026</div>
+    <a class="foot-link" href="https://www.meganoliver.com" target="_blank">Created by Megan Oliver →</a>
+  </div>
+</footer>
+
+</body>
+</html>
