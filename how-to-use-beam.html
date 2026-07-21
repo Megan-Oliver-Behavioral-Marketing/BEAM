@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How to Use BEAM | Behavioral Diagnostic Framework</title>
+<meta name="description" content="A step-by-step guide to running a BEAM behavioral diagnosis — from naming the missing action to designing a testable intervention.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://megan-oliver-behavioral-marketing.github.io/BEAM/how-to-use-beam.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="How to Use BEAM | Behavioral Diagnostic Framework">
+<meta property="og:description" content="A step-by-step guide to running a BEAM behavioral diagnosis.">
+<meta property="og:url" content="https://megan-oliver-behavioral-marketing.github.io/BEAM/how-to-use-beam.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --void: #0D0D0D;
+    --void-soft: #1A1A1A;
+    --void-mid: #252525;
+    --signal: #C8F04A;
+    --signal-dim: #A8CC3A;
+    --text: #F5F2ED;
+    --text-muted: #8A8478;
+    --text-dim: #5C5850;
+    --rule: rgba(245,242,237,0.1);
+    --rule-strong: rgba(245,242,237,0.2);
+    --b: #4A9EFF;
+    --e: #FF6B6B;
+    --a: #FFB347;
+    --m: #A78BFA;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--void);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.7;
+  }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 28px; }
+  a { color: inherit; }
+
+  nav {
+    border-bottom: 1px solid var(--rule);
+    padding: 20px 0;
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(13,13,13,0.96);
+    backdrop-filter: blur(12px);
+  }
+  .nav-inner { display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+  .nav-mark {
+    font-family: 'DM Mono', monospace;
+    font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--text-muted); text-decoration: none;
+  }
+  .nav-mark strong { color: var(--signal); font-weight: 500; }
+  .nav-links {
+    display: flex; gap: 22px;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--text-muted);
+  }
+  .nav-links a { text-decoration: none; transition: color 0.15s; }
+  .nav-links a:hover { color: var(--signal); }
+
+  .hero {
+    padding: 88px 0 72px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .hero-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--text-dim);
+    margin-bottom: 26px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .hero-label::before {
+    content: ""; display: inline-block;
+    width: 24px; height: 1px; background: var(--text-dim);
+  }
+  h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(46px, 7vw, 78px);
+    line-height: 1; letter-spacing: -0.02em;
+    max-width: 14ch; margin-bottom: 28px;
+  }
+  h1 em { color: var(--signal); font-style: italic; }
+  .dek {
+    font-size: 18px; line-height: 1.65;
+    color: var(--text-muted); max-width: 58ch;
+  }
+  .dek strong { color: var(--text); font-weight: 500; }
+
+  .article-shell {
+    display: grid;
+    grid-template-columns: 220px minmax(0, 720px);
+    gap: 72px;
+    padding: 72px 0 96px;
+  }
+  .aside { position: sticky; top: 104px; align-self: start; }
+  .aside-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--text-dim); margin-bottom: 12px;
+  }
+  .aside p { font-size: 13px; color: var(--text-muted); margin-bottom: 24px; }
+  .toc { list-style: none; border-top: 1px solid var(--rule-strong); }
+  .toc a {
+    display: block; padding: 12px 0;
+    border-bottom: 1px solid var(--rule);
+    font-family: 'DM Mono', monospace;
+    font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase;
+    color: var(--text-muted); text-decoration: none; transition: color 0.15s;
+  }
+  .toc a:hover { color: var(--signal); }
+
+  .article h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 36px; line-height: 1.1;
+    margin: 50px 0 18px;
+    scroll-margin-top: 100px;
+  }
+  .article h2:first-child { margin-top: 0; }
+  .article p { font-size: 16px; color: var(--text-muted); margin-bottom: 20px; }
+  .article ul, .article ol { padding-left: 22px; margin: 0 0 24px; color: var(--text-muted); }
+  .article li { padding-left: 5px; margin-bottom: 10px; font-size: 15px; }
+  .article strong { color: var(--text); font-weight: 500; }
+  .article a { color: var(--signal); text-decoration: none; border-bottom: 1px solid rgba(200,240,74,0.3); }
+  .article a:hover { border-color: var(--signal); }
+
+  .answer {
+    padding: 24px 26px;
+    background: var(--void-soft);
+    border-left: 3px solid var(--signal);
+    margin-bottom: 36px;
+  }
+  .answer p { margin: 0; color: var(--text); font-size: 15px; }
+
+  /* STEPS */
+  .step {
+    display: grid;
+    grid-template-columns: 64px 1fr;
+    gap: 24px;
+    padding: 36px 0;
+    border-top: 1px solid var(--rule-strong);
+    scroll-margin-top: 100px;
+  }
+  .step:last-of-type { border-bottom: 1px solid var(--rule-strong); }
+  .step-num {
+    font-family: 'DM Serif Display', serif;
+    font-size: 48px; line-height: 1;
+    color: var(--signal);
+    padding-top: 4px;
+  }
+  .step h3 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 24px; margin-bottom: 10px;
+  }
+  .step p { font-size: 15px; color: var(--text-muted); margin-bottom: 12px; }
+  .step p:last-child { margin-bottom: 0; }
+  .step strong { color: var(--text); font-weight: 500; }
+  .step-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--text-dim); margin-bottom: 10px; display: block;
+  }
+
+  .pullquote {
+    font-family: 'DM Serif Display', serif;
+    font-size: 24px; line-height: 1.4; font-style: italic;
+    padding: 34px; border: 1px solid var(--rule-strong);
+    margin: 38px 0; color: var(--text);
+  }
+
+  .article-cta {
+    margin-top: 58px; padding: 38px;
+    background: var(--void-soft);
+    border-top: 3px solid var(--signal);
+  }
+  .article-cta h2 { font-family: 'DM Serif Display', serif; font-size: 30px; margin: 0 0 12px; }
+  .article-cta p { font-size: 15px; color: var(--text-muted); max-width: 55ch; margin-bottom: 24px; }
+
+  .btn {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase;
+    padding: 14px 20px;
+    border: 1.5px solid var(--signal);
+    background: var(--signal); color: var(--void);
+    text-decoration: none; transition: background 0.15s, border-color 0.15s;
+  }
+  .btn:hover { background: var(--signal-dim); border-color: var(--signal-dim); }
+  .btn.secondary { background: transparent; color: var(--signal); }
+  .btn.secondary:hover { background: var(--signal); color: var(--void); }
+
+  .related { padding: 72px 0; border-top: 1px solid var(--rule); background: var(--void-soft); }
+  .related h2 { font-family: 'DM Serif Display', serif; font-size: 36px; margin-bottom: 28px; }
+  .related-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 1px; background: var(--rule-strong); border: 1px solid var(--rule-strong);
+  }
+  .related-card { padding: 28px; background: var(--void); text-decoration: none; transition: background 0.15s; }
+  .related-card:hover { background: var(--void-mid); }
+  .related-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-dim);
+  }
+  .related-card h3 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 22px; margin: 12px 0 8px; color: var(--text); transition: color 0.15s;
+  }
+  .related-card:hover h3 { color: var(--signal); }
+  .related-card p { font-size: 13px; color: var(--text-muted); }
+
+  footer { padding: 30px 0; border-top: 1px solid var(--rule); }
+  .foot-inner { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
+  .foot-copy {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-dim);
+  }
+  .foot-link {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--text-muted); text-decoration: none; transition: color 0.15s;
+  }
+  .foot-link:hover { color: var(--signal); }
+
+  @media (max-width: 800px) {
+    .article-shell { grid-template-columns: 1fr; gap: 36px; }
+    .aside { position: static; }
+    .toc { display: grid; grid-template-columns: repeat(2, 1fr); }
+    .related-grid { grid-template-columns: 1fr; }
+    .nav-links { display: none; }
+  }
+  @media (max-width: 560px) {
+    .hero { padding: 64px 0 52px; }
+    h1 { font-size: 44px; }
+    .article-shell { padding: 52px 0 72px; }
+    .toc { grid-template-columns: 1fr; }
+    .step { grid-template-columns: 1fr; gap: 12px; }
+    .step-num { font-size: 36px; }
+  }
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap nav-inner">
+    <a class="nav-mark" href="index.html"><strong>B.E.A.M</strong> — Behavioral Diagnostic Framework</a>
+    <div class="nav-links">
+      <a href="index.html">Framework</a>
+      <a href="how-to-use-beam.html">How to Use</a>
+      <a href="beam-diagnostic-worksheet.html">Worksheet</a>
+      <a href="behavioral-marketing-glossary.html">Glossary</a>
+      <a href="https://www.meganoliver.com">Megan Oliver ↗</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="hero-label">Guide</div>
+    <h1>How to run a <em>BEAM diagnosis.</em></h1>
+    <p class="dek">BEAM produces a working hypothesis — not a certainty. The goal is to identify <strong>the condition most worth testing</strong> before designing an intervention.</p>
+  </div>
+</header>
+
+<main class="wrap article-shell">
+  <aside class="aside">
+    <div class="aside-label">Steps</div>
+    <p>Six steps from naming the missing behavior to designing the test.</p>
+    <ol class="toc">
+      <li><a href="#step-1">Name the action</a></li>
+      <li><a href="#step-2">Gather evidence</a></li>
+      <li><a href="#step-3">Name the barrier</a></li>
+      <li><a href="#step-4">Read the emotional state</a></li>
+      <li><a href="#step-5">Examine the moment</a></li>
+      <li><a href="#step-6">Match the intervention</a></li>
+      <li><a href="#step-7">Design the test</a></li>
+    </ol>
+  </aside>
+
+  <article class="article">
+
+    <div class="answer">
+      <p>BEAM is a diagnostic framework — not a prescription. Complete each step using observed behavior wherever possible. If a conclusion is based on instinct, name it as an assumption and test it before treating it as fact.</p>
+    </div>
+
+    <h2 id="step-1">Before you start</h2>
+    <p>Most conversion problems get treated as messaging problems. Better copy gets written. A new creative gets tested. The behavior does not change. BEAM exists because <strong>the barrier is usually not the message.</strong></p>
+    <p>Before running a diagnosis, accept one working premise: if someone is not acting, something specific is blocking them. Your job is to find that thing — not to produce a more convincing argument for action.</p>
+
+    <div class="step" id="step-1">
+      <div class="step-num">1</div>
+      <div>
+        <span class="step-tag">Define the action</span>
+        <h3>Name the specific behavior that is not happening.</h3>
+        <p>Not awareness. Not engagement. Not interest. The exact observable action — submit the form, book the appointment, complete checkout, attend the event, move from one page to the next.</p>
+        <p>If you cannot name it specifically, start there. Vague problems produce vague diagnoses and untestable interventions.</p>
+        <p><strong>Ask:</strong> What would it look like if this worked? What is the single action I need this person to take?</p>
+      </div>
+    </div>
+
+    <div class="step" id="step-2">
+      <div class="step-num">2</div>
+      <div>
+        <span class="step-tag">Gather evidence</span>
+        <h3>Document what you can actually observe.</h3>
+        <p>Where does behavior break? Use analytics to locate the drop-off. Use recordings or usability testing to observe what happens at that point. Use customer language — feedback, reviews, support tickets — to understand why.</p>
+        <p>If evidence is incomplete, name your conclusions as assumptions. An assumption is not a problem. An assumption treated as a fact is.</p>
+        <p><strong>Ask:</strong> What do I actually know versus what am I guessing? Where is the evidence weakest?</p>
+      </div>
+    </div>
+
+    <div class="step" id="step-3">
+      <div class="step-num">3</div>
+      <div>
+        <span class="step-tag">Name the barrier</span>
+        <h3>Identify which condition is blocking the action.</h3>
+        <p>BEAM identifies three primary barrier types. <strong>Ability</strong> — the person cannot understand, locate, evaluate, or complete the action. <strong>Environment</strong> — the path, timing, process, or surrounding conditions resist action. <strong>Motivation</strong> — the action does not feel relevant, worthwhile, or urgent right now.</p>
+        <p>Choose the strongest working diagnosis based on your evidence. Then ask: what else could explain this behavior? Challenge the first explanation before committing to it.</p>
+        <p><strong>Ask:</strong> If the message were perfect, would the behavior still not happen? If yes, the barrier is not the message.</p>
+      </div>
+    </div>
+
+    <div class="step" id="step-4">
+      <div class="step-num">4</div>
+      <div>
+        <span class="step-tag">Read the emotional state</span>
+        <h3>Identify what the person is feeling at the moment of decision.</h3>
+        <p>Not how your audience feels in general — what emotional state is most likely present at the specific point where the action needs to happen. Confusion slows action. Overwhelm delays it. Anxiety avoids it. Confidence enables it.</p>
+        <p>Emotional state shapes how information is interpreted, how much risk feels tolerable, and whether the offer feels safe. The same message lands differently depending on what the person is feeling when they encounter it.</p>
+        <p><strong>Ask:</strong> What is this person experiencing in the seconds before and during the decision? What evidence suggests that state?</p>
+      </div>
+    </div>
+
+    <div class="step" id="step-5">
+      <div class="step-num">5</div>
+      <div>
+        <span class="step-tag">Examine the moment</span>
+        <h3>Document the conditions present at the point of decision.</h3>
+        <p>What does the person see? What do they know? What remains uncertain? What effort is required? What feels at risk? What competes for their attention?</p>
+        <p>The decision moment is the totality of conditions surrounding the action — not just the message or the offer. The same person can behave differently when one of these conditions changes.</p>
+        <p><strong>Ask:</strong> Does the moment support or resist the action I need to happen — and why?</p>
+      </div>
+    </div>
+
+    <div class="step" id="step-6">
+      <div class="step-num">6</div>
+      <div>
+        <span class="step-tag">Match the intervention</span>
+        <h3>Choose the response that addresses the diagnosed condition.</h3>
+        <p>Use <strong>clarification</strong> when the barrier is ability — confusion, overwhelm, or unclear next steps. Simplify the path. Reduce cognitive load. Make the action unmistakable.</p>
+        <p>Use <strong>elevation</strong> when the barrier is motivation — low urgency or weak relevance. Connect the action to an immediate priority. Create a reason to act today.</p>
+        <p>Use <strong>reinforcement</strong> when the emotional state is uncertainty or low confidence. Provide proof or reassurance at the moment it is needed.</p>
+        <p>Use <strong>connection</strong> when the barrier is skepticism or distrust. Build emotional safety before increasing the ask.</p>
+        <p><strong>Ask:</strong> Does this intervention address the diagnosed barrier — or is it the tactic I already wanted to use?</p>
+      </div>
+    </div>
+
+    <div class="step" id="step-7">
+      <div class="step-num">7</div>
+      <div>
+        <span class="step-tag">Design the test</span>
+        <h3>Write a hypothesis that can be proven wrong.</h3>
+        <p>BEAM produces a working diagnosis — not a guarantee. The test determines whether the diagnosis was useful. A good hypothesis names the change, the expected behavior, and the reason.</p>
+        <p><em>If we [change this condition], then [this person] will be more likely to [take this action] because [the diagnosed barrier has been reduced].</em></p>
+        <p>Then identify the success metric — the specific, measurable behavior that would indicate the intervention worked. Run the test. Return to step one with what you learn.</p>
+      </div>
+    </div>
+
+    <div class="pullquote">The goal is not a convincing explanation. It is a sharper hypothesis and a test worth running.</div>
+
+    <div class="article-cta">
+      <h2>Run your first diagnosis.</h2>
+      <p>The BEAM worksheet walks through each step with structured prompts — from naming the action to writing the hypothesis.</p>
+      <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+        <a class="btn" href="beam-diagnostic-worksheet.html">Open the worksheet →</a>
+        <a class="btn secondary" href="start-here.html">Not sure where to start? →</a>
+      </div>
+    </div>
+
+  </article>
+</main>
+
+<section class="related">
+  <div class="wrap">
+    <h2>Go deeper</h2>
+    <div class="related-grid">
+      <a class="related-card" href="beam-diagnostic-worksheet.html">
+        <div class="related-tag">Tool</div>
+        <h3>The diagnostic worksheet</h3>
+        <p>Work through the steps with structured prompts and save your diagnosis.</p>
+      </a>
+      <a class="related-card" href="why-website-visitors-arent-converting.html">
+        <div class="related-tag">Conversion guide</div>
+        <h3>Why visitors aren't converting</h3>
+        <p>See the framework applied to a common conversion problem.</p>
+      </a>
+      <a class="related-card" href="behavioral-marketing-glossary.html">
+        <div class="related-tag">Reference</div>
+        <h3>Behavioral marketing glossary</h3>
+        <p>Plain-language definitions of every term used in the framework.</p>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot-inner">
+    <div class="foot-copy">B.E.A.M Framework — © Megan Oliver 2026</div>
+    <a class="foot-link" href="https://www.meganoliver.com" target="_blank">Created by Megan Oliver →</a>
+  </div>
+</footer>
+
+</body>
+</html>
