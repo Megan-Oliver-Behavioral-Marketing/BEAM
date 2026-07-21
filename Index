@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>B.E.A.M — A Behavioral Diagnostic Framework</title>
+<meta name="description" content="BEAM is a behavioral diagnostic framework for identifying what's blocking action — and finding the intervention that matches what the person is experiencing at the moment of decision.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --void: #0D0D0D;
+    --void-soft: #1A1A1A;
+    --void-mid: #252525;
+    --surface: #F5F2ED;
+    --surface-warm: #EDE8DF;
+    --signal: #C8F04A;
+    --signal-dim: #A8CC3A;
+    --text: #F5F2ED;
+    --text-muted: #8A8478;
+    --text-dim: #5C5850;
+    --rule: rgba(245,242,237,0.1);
+    --rule-strong: rgba(245,242,237,0.2);
+    --b: #4A9EFF;
+    --e: #FF6B6B;
+    --a: #FFB347;
+    --m: #A78BFA;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--void);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.6;
+  }
+
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 28px; }
+
+  /* NAV */
+  nav {
+    border-bottom: 1px solid var(--rule);
+    padding: 20px 0;
+    position: sticky; top: 0; z-index: 50;
+    background: var(--void);
+  }
+  .nav-inner {
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .nav-mark {
+    font-family: 'DM Mono', monospace;
+    font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--text-muted);
+  }
+  .nav-mark strong { color: var(--signal); font-weight: 500; }
+  .nav-cta {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--text-muted);
+    text-decoration: none;
+    border-bottom: 1px solid var(--text-dim);
+    padding-bottom: 2px;
+    transition: color 0.15s, border-color 0.15s;
+  }
+  .nav-cta:hover { color: var(--signal); border-color: var(--signal); }
+
+  /* HERO */
+  .hero {
+    padding: 96px 0 80px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .hero-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--text-dim);
+    margin-bottom: 28px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .hero-label::before {
+    content: "";
+    display: inline-block;
+    width: 24px; height: 1px;
+    background: var(--text-dim);
+  }
+  h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(52px, 8vw, 96px);
+    line-height: 0.95;
+    letter-spacing: -0.02em;
+    margin-bottom: 32px;
+  }
+  h1 .accent { color: var(--signal); font-style: italic; }
+  .hero-sub {
+    font-size: 18px; line-height: 1.65;
+    color: var(--text-muted);
+    max-width: 52ch;
+    margin-bottom: 48px;
+  }
+  .hero-sub strong { color: var(--text); font-weight: 500; }
+
+  /* BEAM LETTERS — HERO STRIP */
+  .beam-strip {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    border: 1px solid var(--rule-strong);
+    margin-top: 64px;
+  }
+  .beam-cell {
+    padding: 32px 24px;
+    border-right: 1px solid var(--rule-strong);
+    position: relative;
+  }
+  .beam-cell:last-child { border-right: none; }
+  .beam-letter {
+    font-family: 'DM Serif Display', serif;
+    font-size: 56px; line-height: 1;
+    margin-bottom: 10px;
+    display: block;
+  }
+  .beam-cell:nth-child(1) .beam-letter { color: var(--b); }
+  .beam-cell:nth-child(2) .beam-letter { color: var(--e); }
+  .beam-cell:nth-child(3) .beam-letter { color: var(--a); }
+  .beam-cell:nth-child(4) .beam-letter { color: var(--m); }
+  .beam-word {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--text-muted);
+    display: block; margin-bottom: 8px;
+  }
+  .beam-def {
+    font-size: 13px; line-height: 1.55; color: var(--text-dim);
+  }
+
+  /* PROBLEM SECTION */
+  .problem {
+    padding: 96px 0;
+    border-bottom: 1px solid var(--rule);
+  }
+  .section-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--text-dim);
+    margin-bottom: 40px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .section-label span {
+    display: inline-block;
+    width: 1px; height: 20px;
+    background: var(--text-dim);
+  }
+  h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(28px, 4vw, 44px);
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+    margin-bottom: 24px;
+    max-width: 22ch;
+  }
+  .problem-body {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 48px;
+    align-items: start;
+  }
+  .problem-text p {
+    font-size: 16px; line-height: 1.75;
+    color: var(--text-muted);
+    margin-bottom: 20px;
+  }
+  .problem-text p:last-child { margin-bottom: 0; }
+  .problem-text strong { color: var(--text); font-weight: 500; }
+  .callout {
+    background: var(--void-soft);
+    border-left: 3px solid var(--signal);
+    padding: 28px 24px;
+    font-family: 'DM Serif Display', serif;
+    font-size: 20px;
+    line-height: 1.45;
+    font-style: italic;
+    color: var(--text);
+  }
+
+  /* BARRIERS */
+  .barriers {
+    padding: 96px 0;
+    border-bottom: 1px solid var(--rule);
+  }
+  .barriers-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px;
+    background: var(--rule-strong);
+    border: 1px solid var(--rule-strong);
+    margin-top: 48px;
+  }
+  .barrier-card {
+    background: var(--void-soft);
+    padding: 36px 28px;
+    min-height: 260px;
+    display: flex; flex-direction: column;
+  }
+  .barrier-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--text-dim);
+    margin-bottom: 20px;
+  }
+  .barrier-card h3 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 26px; margin-bottom: 14px;
+    color: var(--text);
+  }
+  .barrier-card p {
+    font-size: 14px; line-height: 1.65;
+    color: var(--text-muted);
+    flex-grow: 1;
+  }
+
+  /* EMOTIONAL STATE */
+  .emotional {
+    padding: 96px 0;
+    border-bottom: 1px solid var(--rule);
+    background: var(--void-soft);
+  }
+  .emotion-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
+    margin-top: 48px;
+  }
+  .emotion-item {
+    padding: 20px;
+    border: 1px solid var(--rule);
+  }
+  .emotion-state {
+    font-family: 'DM Serif Display', serif;
+    font-size: 20px;
+    margin-bottom: 6px;
+  }
+  .emotion-effect {
+    font-family: 'DM Mono', monospace;
+    font-size: 10.5px; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--text-dim);
+  }
+  .emotion-item.enables .emotion-state { color: var(--signal); }
+  .emotion-item.slows .emotion-state { color: var(--e); }
+  .emotion-item.explores .emotion-state { color: var(--b); }
+
+  /* INTERVENTIONS */
+  .interventions {
+    padding: 96px 0;
+    border-bottom: 1px solid var(--rule);
+  }
+  .intervention-grid {
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px;
+    background: var(--rule-strong);
+    border: 1px solid var(--rule-strong);
+    margin-top: 48px;
+  }
+  .intervention-card {
+    background: var(--void-mid);
+    padding: 40px 32px;
+    min-height: 220px;
+    display: flex; flex-direction: column; gap: 14px;
+  }
+  .intervention-when {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--text-dim);
+  }
+  .intervention-card h3 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 28px;
+  }
+  .intervention-card:nth-child(1) h3 { color: var(--b); }
+  .intervention-card:nth-child(2) h3 { color: var(--e); }
+  .intervention-card:nth-child(3) h3 { color: var(--a); }
+  .intervention-card:nth-child(4) h3 { color: var(--m); }
+  .intervention-card p {
+    font-size: 14px; line-height: 1.65;
+    color: var(--text-muted);
+    flex-grow: 1;
+  }
+
+  /* CORE IDEA */
+  .core-idea {
+    padding: 96px 0;
+    border-bottom: 1px solid var(--rule);
+    text-align: center;
+  }
+  .core-quote {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(22px, 3.5vw, 36px);
+    line-height: 1.35;
+    font-style: italic;
+    max-width: 26ch;
+    margin: 0 auto 32px;
+    color: var(--text);
+  }
+  .core-quote .highlight {
+    background: var(--signal);
+    color: var(--void);
+    padding: 0 4px;
+    font-style: normal;
+  }
+
+  /* CTA */
+  .cta-section {
+    padding: 96px 0;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 60px;
+    align-items: center;
+    border-bottom: 1px solid var(--rule);
+  }
+  .cta-text h2 { max-width: none; margin-bottom: 16px; }
+  .cta-text p {
+    font-size: 16px; line-height: 1.7; color: var(--text-muted);
+    margin-bottom: 32px;
+  }
+  .btn {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-family: 'DM Mono', monospace;
+    font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase;
+    text-decoration: none;
+    padding: 16px 28px;
+    border: 1.5px solid var(--signal);
+    color: var(--signal);
+    transition: background 0.15s, color 0.15s;
+  }
+  .btn:hover { background: var(--signal); color: var(--void); }
+  .btn-solid {
+    background: var(--signal); color: var(--void);
+  }
+  .btn-solid:hover { background: var(--signal-dim); border-color: var(--signal-dim); }
+  .cta-bio {
+    background: var(--void-soft);
+    border: 1px solid var(--rule-strong);
+    padding: 32px;
+  }
+  .cta-bio-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--text-dim);
+    margin-bottom: 16px;
+  }
+  .cta-bio p {
+    font-size: 15px; line-height: 1.7; color: var(--text-muted);
+    margin-bottom: 20px;
+  }
+  .cta-bio a {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--signal);
+    text-decoration: none;
+    border-bottom: 1px solid var(--signal);
+    padding-bottom: 2px;
+  }
+
+  /* FOOTER */
+  footer {
+    padding: 32px 0;
+    border-top: 1px solid var(--rule);
+  }
+  .foot-inner {
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 16px;
+  }
+  .foot-copy {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px; letter-spacing: 0.06em;
+    color: var(--text-dim);
+  }
+  .foot-link {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--text-dim);
+    text-decoration: none;
+    transition: color 0.15s;
+  }
+  .foot-link:hover { color: var(--signal); }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    .beam-strip { grid-template-columns: repeat(2, 1fr); }
+    .beam-cell:nth-child(2) { border-right: none; }
+    .beam-cell:nth-child(3) { border-top: 1px solid var(--rule-strong); border-right: 1px solid var(--rule-strong); }
+    .beam-cell:nth-child(4) { border-top: 1px solid var(--rule-strong); }
+    .problem-body { grid-template-columns: 1fr; }
+    .barriers-grid { grid-template-columns: 1fr; }
+    .emotion-grid { grid-template-columns: repeat(2, 1fr); }
+    .intervention-grid { grid-template-columns: 1fr; }
+    .cta-section { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 480px) {
+    .emotion-grid { grid-template-columns: 1fr; }
+    h1 { font-size: 44px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap nav-inner">
+    <div class="nav-mark"><strong>B.E.A.M</strong> — Behavioral Diagnostic Framework</div>
+    <a class="nav-cta" href="https://www.meganoliver.com" target="_blank">By Megan Oliver →</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-label">Behavioral Diagnostic Framework</div>
+    <h1>Stop fixing<br>the <span class="accent">message.</span><br>Find the block.</h1>
+    <p class="hero-sub">
+      When behavior isn't happening, the default response is to make the message clearer, more persuasive, more targeted.
+      <strong>Most of the time, the message isn't the problem.</strong>
+      Something is blocking the person at the exact moment they have to act.
+      B.E.A.M is a framework for finding it.
+    </p>
+
+    <div class="beam-strip">
+      <div class="beam-cell">
+        <span class="beam-letter">B</span>
+        <span class="beam-word">Barrier</span>
+        <p class="beam-def">What is actually blocking the behavior — ability, environment, or motivation.</p>
+      </div>
+      <div class="beam-cell">
+        <span class="beam-letter">E</span>
+        <span class="beam-word">Emotional State</span>
+        <p class="beam-def">What the person is feeling right now — not in general, but at the moment of decision.</p>
+      </div>
+      <div class="beam-cell">
+        <span class="beam-letter">A</span>
+        <span class="beam-word">Action</span>
+        <p class="beam-def">The specific behavior that isn't happening — not engagement. The exact next step.</p>
+      </div>
+      <div class="beam-cell">
+        <span class="beam-letter">M</span>
+        <span class="beam-word">Moment</span>
+        <p class="beam-def">The conditions present at the point of decision — and whether they support or resist action.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="problem">
+  <div class="wrap">
+    <div class="section-label"><span></span> The Problem</div>
+    <h2>We fix the wrong thing.</h2>
+    <div class="problem-body">
+      <div class="problem-text">
+        <p>When behavior isn't happening — when someone isn't submitting the form, booking the call, completing the purchase — the default response is to fix the message. Make it clearer. More persuasive. More targeted. Run another A/B test on the headline.</p>
+        <p>But <strong>most conversion problems aren't messaging problems.</strong> They're environmental problems. Timing problems. Emotional state problems. The message gets better and the behavior still doesn't change — because the barrier was never the message.</p>
+        <p>B.E.A.M starts from a different premise: if someone isn't acting, something specific is blocking them. The job isn't to communicate better. It's to identify what's in the way — and remove it.</p>
+      </div>
+      <div class="callout">
+        "The intervention has to happen before the decision moment. Not at it."
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="barriers">
+  <div class="wrap">
+    <div class="section-label"><span></span> Step One — Name the Barrier</div>
+    <h2>What's actually in the way.</h2>
+    <p style="color: var(--text-muted); font-size: 15px; max-width: 56ch; margin-top: 12px;">
+      Start with the specific behavior that isn't happening — not awareness, not engagement. The exact action: submit the form, book the appointment, click through, attend the event. Then ask: why isn't it happening?
+    </p>
+    <div class="barriers-grid">
+      <div class="barrier-card">
+        <div class="barrier-tag">Barrier Type 01</div>
+        <h3>Ability</h3>
+        <p>The person can't act. Unclear next step, too much information, uncertainty, low confidence in following through. The path exists — they just can't find or navigate it.</p>
+      </div>
+      <div class="barrier-card">
+        <div class="barrier-tag">Barrier Type 02</div>
+        <h3>Environment</h3>
+        <p>The path isn't supported. Too many steps, poor timing, low visibility, unnecessary friction between intent and action. The person wants to act — the environment won't let them.</p>
+      </div>
+      <div class="barrier-card">
+        <div class="barrier-tag">Barrier Type 03</div>
+        <h3>Motivation</h3>
+        <p>No pull to act now. Low urgency, weak relevance, competing priorities, or emotional resistance in the moment. The path is clear — but there's no reason to take it today.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="emotional">
+  <div class="wrap">
+    <div class="section-label"><span></span> Step Two — Read the Emotional State</div>
+    <h2>What is the person feeling right now.</h2>
+    <p style="color: var(--text-muted); font-size: 15px; max-width: 56ch; margin-top: 12px;">
+      At the point of decision, behavior is shaped by emotional state — not in a broad, identity-driven sense, but in the moment. The goal isn't to map every emotion. It's to identify the one most influencing the decision right now.
+    </p>
+    <div class="emotion-grid">
+      <div class="emotion-item slows">
+        <div class="emotion-state">Confusion</div>
+        <div class="emotion-effect">Slows action</div>
+      </div>
+      <div class="emotion-item slows">
+        <div class="emotion-state">Overwhelm</div>
+        <div class="emotion-effect">Delays action</div>
+      </div>
+      <div class="emotion-item slows">
+        <div class="emotion-state">Anxiety</div>
+        <div class="emotion-effect">Avoids action</div>
+      </div>
+      <div class="emotion-item slows">
+        <div class="emotion-state">Indifference</div>
+        <div class="emotion-effect">Ignores action</div>
+      </div>
+      <div class="emotion-item enables">
+        <div class="emotion-state">Confidence</div>
+        <div class="emotion-effect">Enables action</div>
+      </div>
+      <div class="emotion-item explores">
+        <div class="emotion-state">Curiosity</div>
+        <div class="emotion-effect">Encourages exploration</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="interventions">
+  <div class="wrap">
+    <div class="section-label"><span></span> Step Three — Match the Intervention</div>
+    <h2>Four responses that shift behavior.</h2>
+    <p style="color: var(--text-muted); font-size: 15px; max-width: 56ch; margin-top: 12px;">
+      Once the barrier and emotional state are identified, the intervention can be matched to what the person is actually experiencing — not what you wish they were experiencing.
+    </p>
+    <div class="intervention-grid">
+      <div class="intervention-card">
+        <div class="intervention-when">Used when: confused or overwhelmed</div>
+        <h3>Clarification</h3>
+        <p>Removes ambiguity and makes the next step obvious. Simplifies the path and reduces the cognitive load of deciding. Less information, not more.</p>
+      </div>
+      <div class="intervention-card">
+        <div class="intervention-when">Used when: disengaged or delaying</div>
+        <h3>Elevation</h3>
+        <p>Increases attention and urgency. Creates a reason to act now rather than continue deferring the decision. Stakes have to feel real and immediate.</p>
+      </div>
+      <div class="intervention-card">
+        <div class="intervention-when">Used when: uncertain or lacking confidence</div>
+        <h3>Reinforcement</h3>
+        <p>Builds confidence and reduces hesitation. Provides evidence, validation, or reassurance at the moment it's needed — not before, not after.</p>
+      </div>
+      <div class="intervention-card">
+        <div class="intervention-when">Used when: skeptical or disconnected</div>
+        <h3>Connection</h3>
+        <p>Builds trust and emotional safety. Addresses the relational barrier before asking for a behavioral commitment. Trust before ask.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="core-idea">
+  <div class="wrap">
+    <p class="core-quote">
+      "If someone isn't acting, something is blocking them. The job isn't just to communicate better. It's to identify <span class="highlight">what's in the way</span> — and remove it."
+    </p>
+    <div style="font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-dim);">
+      The BEAM Framework — Megan Oliver
+    </div>
+  </div>
+</section>
+
+<section class="cta-section">
+  <div class="wrap" style="display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;">
+    <div class="cta-text">
+      <div class="section-label"><span></span> Who Built This</div>
+      <h2>This framework came from the field.</h2>
+      <p>
+        B.E.A.M was developed by Megan Oliver — a behavioral marketing strategist with ten years of experience identifying why audiences don't act and building strategy around the moments that actually change behavior.
+      </p>
+      <a class="btn btn-solid" href="https://www.meganoliver.com" target="_blank">See the full body of work →</a>
+    </div>
+    <div class="cta-bio">
+      <div class="cta-bio-label">About the framework</div>
+      <p>
+        Most marketing is built around who someone is. B.E.A.M is built around what's happening at the exact moment they have to decide. The barrier. The emotional state. The action that isn't happening. The moment it needs to happen in.
+      </p>
+      <p>
+        When all four are understood, the intervention becomes obvious. When one is misread, no amount of better messaging fixes it.
+      </p>
+      <a href="https://www.meganoliver.com/beam-framework.html" target="_blank">Read the full framework documentation →</a>
+    </div>
+  </div>
+</section>
+
+<section class="faq-section" id="faq">
+  <div class="wrap">
+    <div class="section-label"><span></span> Common Questions</div>
+    <h2>Frequently Asked</h2>
+    <div class="faq-list">
+
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">What is the BEAM framework?</button>
+        <div class="faq-a" hidden>
+          <p>B.E.A.M is a behavioral diagnostic framework developed by Megan Oliver. It stands for Barrier, Emotional State, Action, and Moment. It's designed to help marketers and strategists identify what's actually blocking behavior at the point of decision — rather than defaulting to fixing the message when conversion isn't happening.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">What does BEAM stand for?</button>
+        <div class="faq-a" hidden>
+          <p><strong>B — Barrier:</strong> What is actually blocking the behavior — ability, environment, or motivation. <strong>E — Emotional State:</strong> What the person is feeling at the moment they have to act, not in general, but right now. <strong>A — Action:</strong> The specific behavior that isn't happening — the exact next step, not vague engagement. <strong>M — Moment:</strong> The conditions present at the point of decision and whether they support or resist action.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">How is BEAM different from other marketing frameworks?</button>
+        <div class="faq-a" hidden>
+          <p>Most marketing frameworks focus on who the audience is — demographics, personas, psychographics. BEAM focuses on what's happening at the exact moment someone has to act. It treats conversion as a behavioral problem, not a messaging problem. The question isn't "who is this person" — it's "what's blocking this person right now, and what's the intervention that matches that specific barrier."</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">Who is BEAM designed for?</button>
+        <div class="faq-a" hidden>
+          <p>BEAM was built for marketing strategists, conversion specialists, and brand teams who are already running campaigns but not seeing the behavior they expect. It's particularly useful when A/B testing and messaging improvements have plateaued — because in those cases, the barrier is usually environmental or emotional, not linguistic.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">What are the four BEAM interventions?</button>
+        <div class="faq-a" hidden>
+          <p>Once the barrier and emotional state are identified, BEAM maps to one of four interventions. <strong>Clarification</strong> is used when someone is confused or overwhelmed — it removes ambiguity and simplifies the path. <strong>Elevation</strong> is used when someone is disengaged or delaying — it creates urgency and raises the stakes. <strong>Reinforcement</strong> is used when someone lacks confidence — it builds reassurance at the point of decision. <strong>Connection</strong> is used when someone is skeptical or disconnected — it addresses the trust barrier before asking for commitment.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">Who created the BEAM framework?</button>
+        <div class="faq-a" hidden>
+          <p>BEAM was created by Megan Oliver, a behavioral marketing strategist based in Memphis, Tennessee, with ten years of experience building marketing strategy around decision moments. The full framework documentation, case studies, and additional resources are available at meganoliver.com.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot-inner">
+    <div class="foot-copy">B.E.A.M Framework — © Megan Oliver 2026</div>
+    <a class="foot-link" href="https://www.meganoliver.com" target="_blank">meganoliver.com →</a>
+  </div>
+</footer>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is the BEAM framework?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "B.E.A.M is a behavioral diagnostic framework developed by Megan Oliver. It stands for Barrier, Emotional State, Action, and Moment. It is designed to help marketers and strategists identify what is actually blocking behavior at the point of decision — rather than defaulting to fixing the message when conversion is not happening."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What does BEAM stand for?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "B stands for Barrier — what is actually blocking the behavior, whether ability, environment, or motivation. E stands for Emotional State — what the person is feeling at the moment they have to act. A stands for Action — the specific behavior that is not happening, the exact next step. M stands for Moment — the conditions present at the point of decision and whether they support or resist action."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How is BEAM different from other marketing frameworks?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Most marketing frameworks focus on who the audience is — demographics, personas, psychographics. BEAM focuses on what is happening at the exact moment someone has to act. It treats conversion as a behavioral problem, not a messaging problem. The question is not who is this person but what is blocking this person right now and what is the intervention that matches that specific barrier."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Who is BEAM designed for?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "BEAM was built for marketing strategists, conversion specialists, and brand teams who are already running campaigns but not seeing the behavior they expect. It is particularly useful when A/B testing and messaging improvements have plateaued — because in those cases, the barrier is usually environmental or emotional, not linguistic."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What are the four BEAM interventions?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Once the barrier and emotional state are identified, BEAM maps to one of four interventions. Clarification is used when someone is confused or overwhelmed — it removes ambiguity and simplifies the path. Elevation is used when someone is disengaged or delaying — it creates urgency. Reinforcement is used when someone lacks confidence — it builds reassurance at the point of decision. Connection is used when someone is skeptical or disconnected — it addresses the trust barrier before asking for commitment."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Who created the BEAM framework?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "BEAM was created by Megan Oliver, a behavioral marketing strategist based in Memphis, Tennessee, with ten years of experience building marketing strategy around decision moments. The full framework documentation, case studies, and additional resources are available at meganoliver.com."
+      }
+    }
+  ]
+}
+</script>
+
+<style>
+  .faq-section {
+    padding: 96px 0;
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    background: var(--void-soft);
+  }
+  .faq-list {
+    margin-top: 48px;
+    border-top: 1px solid var(--rule-strong);
+  }
+  .faq-item {
+    border-bottom: 1px solid var(--rule-strong);
+  }
+  .faq-q {
+    width: 100%;
+    background: none;
+    border: none;
+    color: var(--text);
+    font-family: 'DM Serif Display', serif;
+    font-size: 20px;
+    line-height: 1.3;
+    text-align: left;
+    padding: 28px 0;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    transition: color 0.15s;
+  }
+  .faq-q::after {
+    content: "+";
+    font-family: 'DM Mono', monospace;
+    font-size: 20px;
+    color: var(--signal);
+    flex-shrink: 0;
+    transition: transform 0.2s;
+  }
+  .faq-q[aria-expanded="true"]::after {
+    transform: rotate(45deg);
+  }
+  .faq-q:hover { color: var(--signal); }
+  .faq-a {
+    padding: 0 0 28px;
+    max-width: 68ch;
+  }
+  .faq-a p {
+    font-size: 15px;
+    line-height: 1.75;
+    color: var(--text-muted);
+  }
+  .faq-a strong { color: var(--text); font-weight: 500; }
+</style>
+
+<script>
+  document.querySelectorAll('.faq-q').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const expanded = btn.getAttribute('aria-expanded') === 'true';
+      document.querySelectorAll('.faq-q').forEach(b => {
+        b.setAttribute('aria-expanded', 'false');
+        b.nextElementSibling.hidden = true;
+      });
+      if (!expanded) {
+        btn.setAttribute('aria-expanded', 'true');
+        btn.nextElementSibling.hidden = false;
+      }
+    });
+  });
+</script>
+
+</body>
+</html>
