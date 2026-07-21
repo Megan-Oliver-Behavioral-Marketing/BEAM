@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Behavioral Marketing Reading List | BEAM Framework</title>
+<meta name="description" content="A curated reading list for marketers who want to understand how people actually decide — organized by decision science, influence, conversion, brand, and consumer behavior.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://megan-oliver-behavioral-marketing.github.io/BEAM/behavioral-marketing-reading-list.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Behavioral Marketing Reading List | BEAM Framework">
+<meta property="og:description" content="Curated reading for marketers who want to understand how people actually decide.">
+<meta property="og:url" content="https://megan-oliver-behavioral-marketing.github.io/BEAM/behavioral-marketing-reading-list.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": "Behavioral Marketing Reading List",
+  "description": "A curated reading list for marketers who want to understand how people actually decide.",
+  "url": "https://megan-oliver-behavioral-marketing.github.io/BEAM/behavioral-marketing-reading-list.html",
+  "author": {
+    "@type": "Person",
+    "@id": "https://www.meganoliver.com/#person",
+    "name": "Megan Oliver",
+    "url": "https://www.meganoliver.com"
+  },
+  "isPartOf": {
+    "@type": "WebSite",
+    "name": "BEAM Behavioral Diagnostic Framework",
+    "url": "https://megan-oliver-behavioral-marketing.github.io/BEAM/"
+  }
+}
+</script>
+
+<style>
+  :root {
+    --void: #0D0D0D;
+    --void-soft: #1A1A1A;
+    --void-mid: #252525;
+    --signal: #C8F04A;
+    --signal-dim: #A8CC3A;
+    --text: #F5F2ED;
+    --text-muted: #8A8478;
+    --text-dim: #5C5850;
+    --rule: rgba(245,242,237,0.1);
+    --rule-strong: rgba(245,242,237,0.2);
+    --b: #4A9EFF;
+    --e: #FF6B6B;
+    --a: #FFB347;
+    --m: #A78BFA;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--void);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.7;
+  }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 28px; }
+  a { color: inherit; }
+
+  /* NAV */
+  nav {
+    border-bottom: 1px solid var(--rule);
+    padding: 20px 0;
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(13,13,13,0.96);
+    backdrop-filter: blur(12px);
+  }
+  .nav-inner {
+    display: flex; align-items: center; justify-content: space-between; gap: 24px;
+  }
+  .nav-mark {
+    font-family: 'DM Mono', monospace;
+    font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--text-muted); text-decoration: none;
+  }
+  .nav-mark strong { color: var(--signal); font-weight: 500; }
+  .nav-links {
+    display: flex; gap: 22px;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--text-muted);
+  }
+  .nav-links a { text-decoration: none; transition: color 0.15s; }
+  .nav-links a:hover { color: var(--signal); }
+
+  /* HERO */
+  .hero {
+    padding: 88px 0 72px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .hero-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--text-dim);
+    margin-bottom: 26px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .hero-label::before {
+    content: "";
+    display: inline-block;
+    width: 24px; height: 1px;
+    background: var(--text-dim);
+  }
+  h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(46px, 7vw, 78px);
+    line-height: 1; letter-spacing: -0.02em;
+    max-width: 14ch; margin-bottom: 28px;
+  }
+  h1 em { color: var(--signal); font-style: italic; }
+  .dek {
+    font-size: 18px; line-height: 1.65;
+    color: var(--text-muted); max-width: 58ch;
+  }
+  .dek strong { color: var(--text); font-weight: 500; }
+
+  /* LAYOUT */
+  .reading-shell {
+    display: grid;
+    grid-template-columns: 220px minmax(0, 720px);
+    gap: 72px;
+    padding: 72px 0 96px;
+  }
+  .aside { position: sticky; top: 104px; align-self: start; }
+  .aside-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--text-dim); margin-bottom: 12px;
+  }
+  .aside p { font-size: 13px; color: var(--text-muted); margin-bottom: 24px; }
+  .toc { list-style: none; border-top: 1px solid var(--rule-strong); }
+  .toc a {
+    display: block; padding: 10px 0;
+    border-bottom: 1px solid var(--rule);
+    font-family: 'DM Mono', monospace;
+    font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase;
+    color: var(--text-muted); text-decoration: none;
+    transition: color 0.15s;
+  }
+  .toc a:hover { color: var(--signal); }
+
+  /* SECTION */
+  .reading-section {
+    margin-bottom: 72px;
+    scroll-margin-top: 100px;
+  }
+  .reading-section:last-child { margin-bottom: 0; }
+  .section-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--text-dim);
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--rule-strong);
+    margin-bottom: 32px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .section-label::before {
+    content: "";
+    display: inline-block; width: 1px; height: 16px;
+    background: var(--text-dim);
+  }
+
+  /* HIGHLIGHTED BOOK */
+  .book-featured {
+    background: var(--void-soft);
+    border: 1px solid var(--rule-strong);
+    border-left: 3px solid var(--signal);
+    padding: 28px;
+    margin-bottom: 1px;
+  }
+  .book-featured-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--signal);
+    margin-bottom: 14px;
+    display: block;
+  }
+  .book-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 22px; line-height: 1.15;
+    margin-bottom: 4px;
+    color: var(--text);
+  }
+  .book-author {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--text-dim);
+    margin-bottom: 14px;
+    display: block;
+  }
+  .book-blurb {
+    font-size: 14px; line-height: 1.7;
+    color: var(--text-muted);
+  }
+
+  /* REGULAR BOOK LIST */
+  .book-list {
+    border: 1px solid var(--rule-strong);
+    border-top: none;
+  }
+  .book-item {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 16px;
+    padding: 18px 20px;
+    border-top: 1px solid var(--rule);
+    align-items: start;
+  }
+  .book-item-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 18px; line-height: 1.2;
+    color: var(--text);
+    margin-bottom: 3px;
+  }
+  .book-item-author {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--text-dim);
+  }
+
+  /* CTA */
+  .reading-cta {
+    padding: 48px;
+    background: var(--void-soft);
+    border-top: 3px solid var(--signal);
+    margin-top: 64px;
+  }
+  .reading-cta h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 30px; margin-bottom: 12px;
+  }
+  .reading-cta p {
+    font-size: 15px; color: var(--text-muted);
+    max-width: 55ch; margin-bottom: 24px;
+  }
+  .btn {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase;
+    padding: 14px 20px;
+    border: 1.5px solid var(--signal);
+    background: var(--signal); color: var(--void);
+    text-decoration: none;
+    transition: background 0.15s, border-color 0.15s;
+  }
+  .btn:hover { background: var(--signal-dim); border-color: var(--signal-dim); }
+  .btn.secondary { background: transparent; color: var(--signal); }
+  .btn.secondary:hover { background: var(--signal); color: var(--void); }
+
+  /* RELATED */
+  .related {
+    padding: 72px 0;
+    border-top: 1px solid var(--rule);
+    background: var(--void-soft);
+  }
+  .related h2 { font-family: 'DM Serif Display', serif; font-size: 36px; margin-bottom: 28px; }
+  .related-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 1px; background: var(--rule-strong);
+    border: 1px solid var(--rule-strong);
+  }
+  .related-card {
+    padding: 28px; background: var(--void);
+    text-decoration: none; transition: background 0.15s;
+  }
+  .related-card:hover { background: var(--void-mid); }
+  .related-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--text-dim);
+  }
+  .related-card h3 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 22px; margin: 12px 0 8px; color: var(--text);
+    transition: color 0.15s;
+  }
+  .related-card:hover h3 { color: var(--signal); }
+  .related-card p { font-size: 13px; color: var(--text-muted); }
+
+  /* FOOTER */
+  footer { padding: 30px 0; border-top: 1px solid var(--rule); }
+  .foot-inner {
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 16px;
+  }
+  .foot-copy {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px; letter-spacing: 0.06em; text-transform: uppercase;
+    color: var(--text-dim);
+  }
+  .foot-link {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--text-muted); text-decoration: none; transition: color 0.15s;
+  }
+  .foot-link:hover { color: var(--signal); }
+
+  /* RESPONSIVE */
+  @media (max-width: 800px) {
+    .reading-shell { grid-template-columns: 1fr; gap: 36px; }
+    .aside { position: static; }
+    .toc { display: grid; grid-template-columns: repeat(2, 1fr); }
+    .related-grid { grid-template-columns: 1fr; }
+    .nav-links { display: none; }
+  }
+  @media (max-width: 560px) {
+    .hero { padding: 64px 0 52px; }
+    h1 { font-size: 44px; }
+    .reading-shell { padding: 52px 0 72px; }
+    .toc { grid-template-columns: 1fr; }
+    .reading-cta { padding: 32px 24px; }
+    .book-item { grid-template-columns: 1fr; }
+  }
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap nav-inner">
+    <a class="nav-mark" href="index.html"><strong>B.E.A.M</strong> — Behavioral Diagnostic Framework</a>
+    <div class="nav-links">
+      <a href="index.html">Framework</a>
+      <a href="beam-diagnostic-worksheet.html">Worksheet</a>
+      <a href="https://www.meganoliver.com">Megan Oliver ↗</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="hero-label">Reading List</div>
+    <h1>Read how people <em>actually decide.</em></h1>
+    <p class="dek">A curated list for marketers who want to understand the behavioral science behind conversion, influence, and decision-making. <strong>Highlighted titles</strong> are personally read and recommended.</p>
+  </div>
+</header>
+
+<div class="wrap reading-shell">
+  <aside class="aside">
+    <div class="aside-label">Categories</div>
+    <p>Organized by how each book applies to behavioral marketing and decision diagnosis.</p>
+    <ol class="toc">
+      <li><a href="#decision-science">Decision Science</a></li>
+      <li><a href="#influence">Influence & Persuasion</a></li>
+      <li><a href="#conversion">Conversion & Environment</a></li>
+      <li><a href="#brand">Brand & Identity</a></li>
+      <li><a href="#consumer-behavior">Consumer Behavior</a></li>
+    </ol>
+  </aside>
+
+  <div class="reading-body">
+
+    <!-- DECISION SCIENCE -->
+    <div class="reading-section" id="decision-science">
+      <div class="section-label">Decision Science & Behavioral Economics</div>
+
+      <div class="book-featured">
+        <span class="book-featured-tag">★ Personally read and recommended</span>
+        <div class="book-title">Thinking, Fast and Slow</div>
+        <span class="book-author">Daniel Kahneman</span>
+        <p class="book-blurb">The foundational text for understanding how people actually make decisions. Kahneman's two-system model — fast, intuitive thinking versus slow, deliberate thinking — is the bedrock of everything in behavioral marketing. If you only read one book on this list, this is it. It will permanently change how you think about why people do what they do at the moment of decision.</p>
+      </div>
+      <div class="book-list">
+        <div class="book-item">
+          <div>
+            <div class="book-item-title">Predictably Irrational</div>
+            <span class="book-item-author">Dan Ariely</span>
+          </div>
+        </div>
+        <div class="book-item">
+          <div>
+            <div class="book-item-title">Nudge</div>
+            <span class="book-item-author">Richard Thaler & Cass Sunstein</span>
+          </div>
+        </div>
+        <div class="book-item">
+          <div>
+            <div class="book-item-title">The Undoing Project</div>
+            <span class="book-item-author">Michael Lewis</span>
+          </div>
+        </div>
+        <div class="book-item">
+          <div>
+            <div class="book-item-title">Misbehaving</div>
+            <span class="book-item-author">Richard Thaler</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- INFLUENCE -->
+    <div class="reading-section" id="influence">
+      <div class="section-label">Influence & Persuasion</div>
+
+      <div class="book-featured">
+        <span class="book-featured-tag">★ Personally read and recommended</span>
+        <div class="book-title">Influence</div>
+        <span class="book-author">Robert Cialdini</span>
+        <p class="book-blurb">Six principles — reciprocity, commitment, social proof, authority, liking, scarcity — that explain how and why people say yes. Cialdini spent years studying compliance professionals and the result is one of the most practically useful books in marketing. Understanding these principles is less about using them as tactics and more about recognizing which conditions already exist at your decision moments.</p>
+      </div>
+      <div class="book-list">
+        <div class="book-item">
+          <div>
+            <div class="book-item-title">Pre-Suasion</div>
+            <span class="book-item-author">Robert Cialdini</span>
+          </div>
+        </div>
+        <div class="book-item">
+          <div>
+            <div class="book-item-title">Yes! 50 Scientifically Proven Ways to Be Persuasive</div>
+            <span class="book-item-author">Cialdini, Goldstein & Martin</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CONVERSION -->
+    <div class="reading-section" id="conversion">
+      <div class="section-label">Conversion & Decision Environment</div>
+
+      <div class="book-featured">
+        <span class="book-featured-tag">★ Personally read and recommended</span>
+        <div class="book-title">Friction</div>
+        <span class="book-author">Roger Dooley</span>
+        <p class="book-blurb">The most directly applicable book on this list to the work BEAM is designed to do. Dooley makes a rigorous case that reducing friction — removing barriers to action rather than increasing persuasion — is one of the highest-return interventions in marketing. Every chapter is organized around a specific friction type and how to identify and remove it. Required reading for anyone working on conversion.</p>
+      </div>
+      <div class="book-list">
+        <div class="book-item">
+          <div>
+            <div class="book-item-title">Hooked</div>
+            <span class="book-item-author">Nir Eyal</span>
+          </div>
+        </div>
+        <div class="book-item">
+          <div>
+            <div class="book-item-title">The Choice Factory</div>
+            <span class="book-item-author">Richard Shotton</span>
+          </div>
+        </div>
+        <div class="book-item">
+          <div>
+            <div class="book-item-title">Bottlenecks</div>
+            <span class="book-item-author">David Evans</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- BRAND -->
+    <div class="reading-section" id="brand">
+      <div class="section-label">Brand & Identity</div>
+
+      <div class="book-featured">
+        <span class="book-featured-tag">★ Personally read and recommended</span>
+        <div class="book-title">This Is Marketing</div>
+        <span class="book-author">Seth Godin</span>
+        <p class="book-blurb">Godin's clearest articulation of a simple but important idea — marketing is not about reaching everyone, it is about finding the people who believe what you believe and making something that matters to them. The behavioral angle here is identity. People do not buy products. They buy who they become when they use them. This book is the clearest argument for building around identity rather than features.</p>
+      </div>
+      <div class="book-list">
+        <div class="book-item">
+          <div>
+            <div class="book-item-title">Building a StoryBrand</div>
+            <span class="book-item-author">Donald Miller</span>
+          </div>
+        </div>
+        <div class="book-item">
+          <div>
+            <div class="book-item-title">Positioning</div>
+            <span class="book-item-author">Al Ries & Jack Trout</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CONSUMER BEHAVIOR -->
+    <div class="reading-section" id="consumer-behavior">
+      <div class="section-label">Research & Consumer Behavior</div>
+
+      <div class="book-featured">
+        <span class="book-featured-tag">★ Personally read and recommended</span>
+        <div class="book-title">Decoded</div>
+        <span class="book-author">Phil Barden</span>
+        <p class="book-blurb">One of the most underread books in marketing. Barden applies neuroscience and decision science directly to brand and marketing strategy — explaining why people choose what they choose at the point of purchase. Where Kahneman explains the theory, Barden shows what it looks like applied to real brand decisions. Particularly strong on how the brain encodes value and what that means for positioning and communication.</p>
+      </div>
+      <div class="book-list">
+        <div class="book-item">
+          <div>
+            <div class="book-item-title">How Brands Grow</div>
+            <span class="book-item-author">Byron Sharp</span>
+          </div>
+        </div>
+        <div class="book-item">
+          <div>
+            <div class="book-item-title">Buyology</div>
+            <span class="book-item-author">Martin Lindstrom</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="reading-cta">
+      <h2>Put the reading to work.</h2>
+      <p>The BEAM worksheet applies the concepts from these books to a specific behavior that is not happening in your own marketing.</p>
+      <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+        <a class="btn" href="beam-diagnostic-worksheet.html">Open the worksheet →</a>
+        <a class="btn secondary" href="behavioral-marketing-glossary.html">Browse the glossary →</a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<section class="related">
+  <div class="wrap">
+    <h2>Continue learning</h2>
+    <div class="related-grid">
+      <a class="related-card" href="behavioral-marketing-glossary.html">
+        <div class="related-tag">Reference</div>
+        <h3>Behavioral marketing glossary</h3>
+        <p>Plain-language definitions of the terms behind the framework.</p>
+      </a>
+      <a class="related-card" href="why-website-visitors-arent-converting.html">
+        <div class="related-tag">Conversion guide</div>
+        <h3>Why visitors aren't converting</h3>
+        <p>Apply what you've read to a real conversion diagnosis.</p>
+      </a>
+      <a class="related-card" href="beam-diagnostic-worksheet.html">
+        <div class="related-tag">Tool</div>
+        <h3>The diagnostic worksheet</h3>
+        <p>Turn a stalled behavior into a working hypothesis you can test.</p>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot-inner">
+    <div class="foot-copy">B.E.A.M Framework — © Megan Oliver 2026</div>
+    <a class="foot-link" href="https://www.meganoliver.com" target="_blank">Created by Megan Oliver →</a>
+  </div>
+</footer>
+
+</body>
+</html>
