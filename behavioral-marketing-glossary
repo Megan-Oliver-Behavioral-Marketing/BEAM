@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Behavioral Marketing Glossary | BEAM Framework</title>
+<meta name="description" content="Plain-language definitions of behavioral marketing terms used in the BEAM diagnostic framework — including decision moment, cognitive load, friction, and more.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://megan-oliver-behavioral-marketing.github.io/BEAM/behavioral-marketing-glossary.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Behavioral Marketing Glossary | BEAM Framework">
+<meta property="og:description" content="Plain-language definitions of behavioral marketing and decision science terms.">
+<meta property="og:url" content="https://megan-oliver-behavioral-marketing.github.io/BEAM/behavioral-marketing-glossary.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "DefinedTermSet",
+  "name": "Behavioral Marketing Glossary",
+  "description": "Plain-language definitions of behavioral marketing and decision science terms used in the BEAM diagnostic framework.",
+  "url": "https://megan-oliver-behavioral-marketing.github.io/BEAM/behavioral-marketing-glossary.html",
+  "author": {
+    "@type": "Person",
+    "@id": "https://www.meganoliver.com/#person",
+    "name": "Megan Oliver",
+    "url": "https://www.meganoliver.com"
+  },
+  "isPartOf": {
+    "@type": "WebSite",
+    "name": "BEAM Behavioral Diagnostic Framework",
+    "url": "https://megan-oliver-behavioral-marketing.github.io/BEAM/"
+  }
+}
+</script>
+
+<style>
+  :root {
+    --void: #0D0D0D;
+    --void-soft: #1A1A1A;
+    --void-mid: #252525;
+    --signal: #C8F04A;
+    --signal-dim: #A8CC3A;
+    --text: #F5F2ED;
+    --text-muted: #8A8478;
+    --text-dim: #5C5850;
+    --rule: rgba(245,242,237,0.1);
+    --rule-strong: rgba(245,242,237,0.2);
+    --b: #4A9EFF;
+    --e: #FF6B6B;
+    --a: #FFB347;
+    --m: #A78BFA;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--void);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.7;
+  }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 28px; }
+  a { color: inherit; }
+
+  /* NAV */
+  nav {
+    border-bottom: 1px solid var(--rule);
+    padding: 20px 0;
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(13,13,13,0.96);
+    backdrop-filter: blur(12px);
+  }
+  .nav-inner {
+    display: flex; align-items: center; justify-content: space-between; gap: 24px;
+  }
+  .nav-mark {
+    font-family: 'DM Mono', monospace;
+    font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--text-muted); text-decoration: none;
+  }
+  .nav-mark strong { color: var(--signal); font-weight: 500; }
+  .nav-links {
+    display: flex; gap: 22px;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--text-muted);
+  }
+  .nav-links a { text-decoration: none; transition: color 0.15s; }
+  .nav-links a:hover { color: var(--signal); }
+
+  /* HERO */
+  .hero {
+    padding: 88px 0 72px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .hero-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--text-dim);
+    margin-bottom: 26px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .hero-label::before {
+    content: "";
+    display: inline-block;
+    width: 24px; height: 1px;
+    background: var(--text-dim);
+  }
+  h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(46px, 7vw, 78px);
+    line-height: 1; letter-spacing: -0.02em;
+    max-width: 14ch; margin-bottom: 28px;
+  }
+  h1 em { color: var(--signal); font-style: italic; }
+  .dek {
+    font-size: 18px; line-height: 1.65;
+    color: var(--text-muted); max-width: 58ch;
+  }
+
+  /* ALPHA NAV */
+  .alpha-nav {
+    padding: 24px 0;
+    border-bottom: 1px solid var(--rule);
+    background: var(--void-soft);
+  }
+  .alpha-list {
+    display: flex; gap: 6px; flex-wrap: wrap;
+  }
+  .alpha-list a {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--text-dim); text-decoration: none;
+    padding: 6px 10px;
+    border: 1px solid var(--rule);
+    transition: color 0.15s, border-color 0.15s;
+  }
+  .alpha-list a:hover { color: var(--signal); border-color: var(--signal); }
+
+  /* GLOSSARY LAYOUT */
+  .glossary-shell {
+    display: grid;
+    grid-template-columns: 220px minmax(0, 720px);
+    gap: 72px;
+    padding: 72px 0 96px;
+  }
+  .aside { position: sticky; top: 104px; align-self: start; }
+  .aside-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--text-dim); margin-bottom: 12px;
+  }
+  .aside p { font-size: 13px; color: var(--text-muted); margin-bottom: 24px; }
+  .toc { list-style: none; border-top: 1px solid var(--rule-strong); }
+  .toc a {
+    display: block; padding: 10px 0;
+    border-bottom: 1px solid var(--rule);
+    font-family: 'DM Mono', monospace;
+    font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase;
+    color: var(--text-muted); text-decoration: none;
+    transition: color 0.15s;
+  }
+  .toc a:hover { color: var(--signal); }
+
+  /* TERM GROUPS */
+  .term-group {
+    margin-bottom: 64px;
+    scroll-margin-top: 100px;
+  }
+  .term-group:last-child { margin-bottom: 0; }
+  .group-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--text-dim);
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--rule-strong);
+    margin-bottom: 32px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .group-label::before {
+    content: "";
+    display: inline-block; width: 1px; height: 16px;
+    background: var(--text-dim);
+  }
+
+  /* TERM ENTRIES */
+  .term-entry {
+    padding: 28px 0;
+    border-bottom: 1px solid var(--rule);
+    scroll-margin-top: 100px;
+  }
+  .term-entry:last-child { border-bottom: none; }
+  .term-name {
+    font-family: 'DM Serif Display', serif;
+    font-size: 26px; line-height: 1.1;
+    margin-bottom: 10px;
+    color: var(--text);
+  }
+  .term-type {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--text-dim);
+    margin-bottom: 14px;
+    display: block;
+  }
+  .term-def {
+    font-size: 15px; line-height: 1.75;
+    color: var(--text-muted);
+    max-width: 66ch;
+    margin-bottom: 12px;
+  }
+  .term-def:last-child { margin-bottom: 0; }
+  .term-def strong { color: var(--text); font-weight: 500; }
+  .term-link {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--signal); text-decoration: none;
+    border-bottom: 1px solid rgba(200,240,74,0.3);
+    transition: border-color 0.15s;
+  }
+  .term-link:hover { border-color: var(--signal); }
+
+  /* CTA */
+  .glossary-cta {
+    padding: 48px;
+    background: var(--void-soft);
+    border-top: 3px solid var(--signal);
+    margin-top: 64px;
+  }
+  .glossary-cta h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 30px; margin-bottom: 12px;
+  }
+  .glossary-cta p {
+    font-size: 15px; color: var(--text-muted);
+    max-width: 55ch; margin-bottom: 24px;
+  }
+  .btn {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase;
+    padding: 14px 20px;
+    border: 1.5px solid var(--signal);
+    background: var(--signal); color: var(--void);
+    text-decoration: none;
+    transition: background 0.15s, border-color 0.15s;
+  }
+  .btn:hover { background: var(--signal-dim); border-color: var(--signal-dim); }
+  .btn.secondary { background: transparent; color: var(--signal); }
+  .btn.secondary:hover { background: var(--signal); color: var(--void); }
+
+  /* RELATED */
+  .related {
+    padding: 72px 0;
+    border-top: 1px solid var(--rule);
+    background: var(--void-soft);
+  }
+  .related h2 { font-family: 'DM Serif Display', serif; font-size: 36px; margin-bottom: 28px; }
+  .related-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 1px; background: var(--rule-strong);
+    border: 1px solid var(--rule-strong);
+  }
+  .related-card {
+    padding: 28px; background: var(--void);
+    text-decoration: none; transition: background 0.15s;
+  }
+  .related-card:hover { background: var(--void-mid); }
+  .related-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--text-dim);
+  }
+  .related-card h3 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 22px; margin: 12px 0 8px; color: var(--text);
+    transition: color 0.15s;
+  }
+  .related-card:hover h3 { color: var(--signal); }
+  .related-card p { font-size: 13px; color: var(--text-muted); }
+
+  /* FOOTER */
+  footer { padding: 30px 0; border-top: 1px solid var(--rule); }
+  .foot-inner {
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 16px;
+  }
+  .foot-copy {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px; letter-spacing: 0.06em; text-transform: uppercase;
+    color: var(--text-dim);
+  }
+  .foot-link {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--text-muted); text-decoration: none; transition: color 0.15s;
+  }
+  .foot-link:hover { color: var(--signal); }
+
+  /* RESPONSIVE */
+  @media (max-width: 800px) {
+    .glossary-shell { grid-template-columns: 1fr; gap: 36px; }
+    .aside { position: static; }
+    .toc { display: grid; grid-template-columns: repeat(2, 1fr); }
+    .related-grid { grid-template-columns: 1fr; }
+    .nav-links { display: none; }
+    .alpha-list a { font-size: 10px; padding: 5px 8px; }
+  }
+  @media (max-width: 560px) {
+    .hero { padding: 64px 0 52px; }
+    h1 { font-size: 44px; }
+    .glossary-shell { padding: 52px 0 72px; }
+    .toc { grid-template-columns: 1fr; }
+    .glossary-cta { padding: 32px 24px; }
+  }
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap nav-inner">
+    <a class="nav-mark" href="index.html"><strong>B.E.A.M</strong> — Behavioral Diagnostic Framework</a>
+    <div class="nav-links">
+      <a href="index.html">Framework</a>
+      <a href="beam-diagnostic-worksheet.html">Worksheet</a>
+      <a href="https://www.meganoliver.com">Megan Oliver ↗</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="hero-label">Reference</div>
+    <h1>Behavioral marketing <em>terms defined.</em></h1>
+    <p class="dek">Plain-language definitions of the concepts behind the BEAM framework — no textbook required. Every term is written to be understood in one reading and applied the same week.</p>
+  </div>
+</header>
+
+<div class="alpha-nav">
+  <div class="wrap">
+    <div class="alpha-list">
+      <a href="#beam-terms">BEAM Terms</a>
+      <a href="#behavioral-science">Behavioral Science</a>
+      <a href="#marketing-application">Marketing Application</a>
+    </div>
+  </div>
+</div>
+
+<div class="wrap glossary-shell">
+  <aside class="aside">
+    <div class="aside-label">Term groups</div>
+    <p>Definitions organized by how they apply to behavioral diagnosis and marketing strategy.</p>
+    <ol class="toc">
+      <li><a href="#beam-terms">BEAM Framework Terms</a></li>
+      <li><a href="#behavioral-science">Behavioral Science Terms</a></li>
+      <li><a href="#marketing-application">Marketing Application Terms</a></li>
+    </ol>
+  </aside>
+
+  <div class="glossary-body">
+
+    <!-- BEAM TERMS -->
+    <div class="term-group" id="beam-terms">
+      <div class="group-label">BEAM Framework Terms</div>
+
+      <div class="term-entry" id="decision-moment">
+        <div class="term-name">Decision Moment</div>
+        <span class="term-type">Core BEAM concept</span>
+        <p class="term-def">The specific point in time when a person must act, delay, or abandon an intended behavior. The decision moment is defined by what the person sees, knows, feels, risks, and must do at that precise instant — not by what they generally think or feel about a topic.</p>
+        <p class="term-def">Most marketing is designed around awareness and intent. BEAM focuses on the decision moment because the same person can behave differently depending on the conditions present when they have to act.</p>
+      </div>
+
+      <div class="term-entry" id="behavioral-barrier">
+        <div class="term-name">Behavioral Barrier</div>
+        <span class="term-type">Core BEAM concept</span>
+        <p class="term-def">A condition that prevents or delays an intended action at the moment of decision. BEAM identifies three primary barrier types: <strong>ability</strong> (the person cannot understand or complete the action), <strong>environment</strong> (the surrounding conditions resist action), and <strong>motivation</strong> (acting does not feel relevant or worthwhile right now).</p>
+        <p class="term-def">Identifying the barrier type matters because each requires a different intervention. Treating every conversion problem as a messaging problem is the most common diagnostic error in marketing.</p>
+        <a class="term-link" href="why-website-visitors-arent-converting.html">See barrier types in practice →</a>
+      </div>
+
+      <div class="term-entry" id="ability-barrier">
+        <div class="term-name">Ability Barrier</div>
+        <span class="term-type">BEAM barrier type</span>
+        <p class="term-def">A condition in which the person is willing to act but cannot — because the next step is unclear, the process requires information or effort they do not have, or the action itself is difficult to locate or complete.</p>
+        <p class="term-def">Signs of an ability barrier include repeated navigation loops, high drop-off at specific steps, or users who express interest but fail to complete. The intervention is usually clarification — simplifying the path and making the next step unmistakable.</p>
+      </div>
+
+      <div class="term-entry" id="environmental-barrier">
+        <div class="term-name">Environmental Barrier</div>
+        <span class="term-type">BEAM barrier type</span>
+        <p class="term-def">A condition in which the physical, digital, procedural, or situational context surrounding the decision makes action harder or less emotionally supported. The person may be willing and able to act — but the environment works against them.</p>
+        <p class="term-def">Environmental barriers include poor timing, excessive steps, mobile friction, distracting surroundings, or a physical or digital experience that conflicts with the emotional qualities required for the decision.</p>
+        <a class="term-link" href="beam-in-practice-environmental-barrier-conversion.html">See an environmental barrier diagnosis →</a>
+      </div>
+
+      <div class="term-entry" id="motivational-barrier">
+        <div class="term-name">Motivational Barrier</div>
+        <span class="term-type">BEAM barrier type</span>
+        <p class="term-def">A condition in which the path is clear and the environment is supportive, but acting does not feel relevant, urgent, or worthwhile right now. The person delays or defers — not because they cannot act, but because there is no compelling reason to act today.</p>
+        <p class="term-def">Signs of a motivational barrier include high engagement with low conversion, repeated deferrals, or users who say they will come back. The intervention is usually elevation — increasing urgency, relevance, or the perceived stakes of delay.</p>
+      </div>
+
+      <div class="term-entry" id="emotional-state">
+        <div class="term-name">Emotional State</div>
+        <span class="term-type">Core BEAM concept</span>
+        <p class="term-def">The emotional condition a person is in at the moment they have to decide — not how they feel about a topic in general, but what they are experiencing right now. Emotional state shapes how information is interpreted, how much risk feels tolerable, and whether action feels safe.</p>
+        <p class="term-def">BEAM treats emotional state as a working diagnosis rather than a fixed audience characteristic. Confusion slows action. Overwhelm delays it. Anxiety avoids it. Confidence enables it. The goal is to identify which state is most influencing the specific decision moment.</p>
+        <a class="term-link" href="beam-in-practice-emotional-state-conversion.html">See emotional state in a live diagnosis →</a>
+      </div>
+
+      <div class="term-entry" id="clarification">
+        <div class="term-name">Clarification</div>
+        <span class="term-type">BEAM intervention</span>
+        <p class="term-def">An intervention that removes ambiguity, simplifies the path, and reduces the cognitive load of deciding. Used when the diagnosed barrier is an ability barrier — confusion, overwhelm, or unclear next steps.</p>
+        <p class="term-def">Clarification is not about adding more information. It is about removing what is making the decision harder than it needs to be.</p>
+      </div>
+
+      <div class="term-entry" id="elevation">
+        <div class="term-name">Elevation</div>
+        <span class="term-type">BEAM intervention</span>
+        <p class="term-def">An intervention that increases urgency, relevance, or the perceived stakes of inaction. Used when the diagnosed barrier is motivational — the person understands the offer but does not feel compelled to act now.</p>
+        <p class="term-def">Elevation creates a reason to act today rather than defer. It works by connecting the action to an immediate priority rather than a general benefit.</p>
+      </div>
+
+      <div class="term-entry" id="reinforcement">
+        <div class="term-name">Reinforcement</div>
+        <span class="term-type">BEAM intervention</span>
+        <p class="term-def">An intervention that builds confidence and reduces hesitation by providing proof, validation, or reassurance at the moment it is needed. Used when the diagnosed emotional state is uncertainty, anxiety, or low confidence.</p>
+        <p class="term-def">Reinforcement is most effective when delivered at the decision moment — not earlier in the funnel where the person is still forming intent.</p>
+      </div>
+
+      <div class="term-entry" id="connection">
+        <div class="term-name">Connection</div>
+        <span class="term-type">BEAM intervention</span>
+        <p class="term-def">An intervention that builds trust and emotional safety before asking for a behavioral commitment. Used when the diagnosed barrier involves skepticism, distrust, or emotional distance from the offer or brand.</p>
+        <p class="term-def">Connection does not mean being friendly or warm in tone. It means addressing the relational barrier — the gap between what the person needs to feel and what the current experience delivers.</p>
+      </div>
+
+    </div>
+
+    <!-- BEHAVIORAL SCIENCE TERMS -->
+    <div class="term-group" id="behavioral-science">
+      <div class="group-label">Behavioral Science Terms</div>
+
+      <div class="term-entry" id="cognitive-load">
+        <div class="term-name">Cognitive Load</div>
+        <span class="term-type">Behavioral science</span>
+        <p class="term-def">The total mental effort required to process information and make a decision at a given moment. Every additional field, option, instruction, or decision point adds to cognitive load. When load exceeds capacity, people slow down, make errors, or abandon the task entirely.</p>
+        <p class="term-def">In marketing contexts, high cognitive load at the point of conversion is one of the most common and most treatable ability barriers. Reducing cognitive load usually means removing elements rather than adding them.</p>
+      </div>
+
+      <div class="term-entry" id="loss-aversion">
+        <div class="term-name">Loss Aversion</div>
+        <span class="term-type">Behavioral science</span>
+        <p class="term-def">The tendency for people to weigh a potential loss more heavily than an equivalent gain. Research consistently finds that the pain of losing something is felt more acutely than the pleasure of gaining something of equal value.</p>
+        <p class="term-def">In marketing, loss-framed messages — "don't lose your spot," "your offer expires tonight" — often outperform gain-framed equivalents. Loss aversion is most effective when the loss feels specific, credible, and imminent.</p>
+      </div>
+
+      <div class="term-entry" id="choice-overload">
+        <div class="term-name">Choice Overload</div>
+        <span class="term-type">Behavioral science</span>
+        <p class="term-def">A phenomenon in which presenting too many options reduces the likelihood that a person will make any decision at all. More choices increase cognitive load, create comparison anxiety, and raise the perceived risk of choosing wrong.</p>
+        <p class="term-def">Choice overload is a common environmental barrier in digital marketing. Reducing the number of options — or surfacing a clear recommended path — often improves conversion more than adding persuasive copy.</p>
+      </div>
+
+      <div class="term-entry" id="anchoring">
+        <div class="term-name">Anchoring</div>
+        <span class="term-type">Behavioral science</span>
+        <p class="term-def">The tendency for people to rely heavily on the first piece of information they encounter when evaluating options. The initial number, price, or data point becomes a reference point that shapes how everything else is interpreted.</p>
+        <p class="term-def">In pricing strategy, the first number a person sees recalibrates how they evaluate every subsequent number. Anchoring is most powerful when the reference point is encountered before the person has formed their own estimate.</p>
+      </div>
+
+      <div class="term-entry" id="default-effect">
+        <div class="term-name">Default Effect</div>
+        <span class="term-type">Behavioral science</span>
+        <p class="term-def">The tendency for people to accept whatever option is pre-selected or presented as the standard choice. Defaults exploit inertia — the path of least resistance is whatever requires no additional decision.</p>
+        <p class="term-def">In product and form design, the default option often becomes the most chosen option regardless of its merits. Setting thoughtful defaults is a form of decision architecture that can significantly shift behavior without changing the available choices.</p>
+      </div>
+
+      <div class="term-entry" id="status-quo-bias">
+        <div class="term-name">Status Quo Bias</div>
+        <span class="term-type">Behavioral science</span>
+        <p class="term-def">The preference for the current state over change, even when a different option would produce a better outcome. People tend to stick with what they have unless the cost of staying feels greater than the cost of switching.</p>
+        <p class="term-def">Status quo bias underlies many motivational barriers. When a person understands an offer and is capable of acting but still does not — the current situation often feels safer than the alternative, regardless of the objective difference.</p>
+      </div>
+
+      <div class="term-entry" id="friction">
+        <div class="term-name">Friction</div>
+        <span class="term-type">Behavioral science</span>
+        <p class="term-def">Any element of a process, environment, or experience that increases the effort required to complete an action. Friction can be physical, cognitive, procedural, or emotional. Even small amounts of friction at the decision moment can significantly reduce conversion.</p>
+        <p class="term-def">Not all friction is bad. Intentional friction — such as confirmation steps for irreversible actions — can prevent errors and increase commitment. Unintentional friction is almost always a barrier worth removing.</p>
+      </div>
+
+      <div class="term-entry" id="decision-architecture">
+        <div class="term-name">Decision Architecture</div>
+        <span class="term-type">Behavioral science</span>
+        <p class="term-def">The design of the environment in which people make choices — including the order options are presented, the framing of each choice, the defaults that are set, and the information that is made visible or hidden.</p>
+        <p class="term-def">Decision architecture shapes outcomes as much as the offer itself. The same options presented in a different order, with different defaults, or with different reference points can produce meaningfully different decisions.</p>
+      </div>
+
+    </div>
+
+    <!-- MARKETING APPLICATION TERMS -->
+    <div class="term-group" id="marketing-application">
+      <div class="group-label">Marketing Application Terms</div>
+
+      <div class="term-entry" id="conversion">
+        <div class="term-name">Conversion</div>
+        <span class="term-type">Marketing application</span>
+        <p class="term-def">The completion of a specific, intended action by a person interacting with a product, service, or marketing touchpoint. Conversion is an outcome — not a diagnosis. Low conversion describes what is not happening. It does not explain why.</p>
+        <p class="term-def">BEAM treats conversion problems as behavioral problems first. Before changing the message, the offer, or the creative, the framework identifies what condition is blocking the action at the moment it needs to happen.</p>
+        <a class="term-link" href="why-website-visitors-arent-converting.html">Diagnose a conversion problem →</a>
+      </div>
+
+      <div class="term-entry" id="behavioral-diagnosis">
+        <div class="term-name">Behavioral Diagnosis</div>
+        <span class="term-type">Marketing application</span>
+        <p class="term-def">The process of identifying what specific condition is preventing or delaying an intended behavior, rather than assuming the cause and selecting a tactic. A behavioral diagnosis names the action that is not happening, the barrier most likely causing it, the emotional state present at the decision moment, and the intervention most likely to change the outcome.</p>
+        <p class="term-def">A diagnosis is a working hypothesis — not a certainty. It should be supported by observable evidence and tested against actual behavior before being treated as fact.</p>
+        <a class="term-link" href="beam-diagnostic-worksheet.html">Run a behavioral diagnosis →</a>
+      </div>
+
+      <div class="term-entry" id="decision-environment">
+        <div class="term-name">Decision Environment</div>
+        <span class="term-type">Marketing application</span>
+        <p class="term-def">The totality of conditions surrounding a person at the moment they have to decide — including what they see, what they know, what they feel, what effort is required, what feels at risk, and what competes for their attention.</p>
+        <p class="term-def">The decision environment is distinct from the message. A message can be clear and compelling while the environment still prevents action — because of poor timing, excessive steps, emotional misalignment, or missing information. Changing the environment is often more effective than improving the message.</p>
+      </div>
+
+      <div class="term-entry" id="high-intent-behavior">
+        <div class="term-name">High-Intent Behavior</div>
+        <span class="term-type">Marketing application</span>
+        <p class="term-def">An action that signals a person is actively considering a specific decision — such as searching a specific query, visiting a pricing or booking page, or starting a form. High-intent behavior indicates proximity to a decision moment rather than general interest.</p>
+        <p class="term-def">Marketing that reaches people at high-intent moments has a fundamentally different job than awareness-stage marketing. The barrier is rarely information — it is usually the conditions surrounding the final step. BEAM is most directly applied at high-intent stages of the decision process.</p>
+      </div>
+
+    </div>
+
+    <div class="glossary-cta">
+      <h2>Apply these concepts to a real problem.</h2>
+      <p>The BEAM worksheet walks through barrier identification, emotional state diagnosis, and intervention selection using your own conversion problem as the input.</p>
+      <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+        <a class="btn" href="beam-diagnostic-worksheet.html">Open the worksheet →</a>
+        <a class="btn secondary" href="index.html">Read the framework →</a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<section class="related">
+  <div class="wrap">
+    <h2>Continue learning</h2>
+    <div class="related-grid">
+      <a class="related-card" href="why-website-visitors-arent-converting.html">
+        <div class="related-tag">Conversion guide</div>
+        <h3>Why visitors aren't converting</h3>
+        <p>Separate the outcome from the behavioral diagnosis.</p>
+      </a>
+      <a class="related-card" href="messaging-problem-or-behavioral-barrier.html">
+        <div class="related-tag">Decision guide</div>
+        <h3>Messaging problem or behavioral barrier?</h3>
+        <p>Know when better copy will — and won't — change behavior.</p>
+      </a>
+      <a class="related-card" href="beam-diagnostic-worksheet.html">
+        <div class="related-tag">Tool</div>
+        <h3>The diagnostic worksheet</h3>
+        <p>Turn a stalled behavior into a working hypothesis you can test.</p>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot-inner">
+    <div class="foot-copy">B.E.A.M Framework — © Megan Oliver 2026</div>
+    <a class="foot-link" href="https://www.meganoliver.com" target="_blank">Created by Megan Oliver →</a>
+  </div>
+</footer>
+
+</body>
+</html>
