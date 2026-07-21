@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://megan-oliver-behavioral-marketing.github.io/BEAM/sitemap.xml
