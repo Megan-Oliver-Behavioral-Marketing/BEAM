@@ -68,6 +68,51 @@
     transition: color 0.15s, border-color 0.15s;
   }
   .nav-cta:hover { color: var(--signal); border-color: var(--signal); }
+  .nav-links {
+    display: flex; align-items: center; gap: 22px;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--text);
+  }
+  .nav-links a { text-decoration: none; color: var(--text); transition: color 0.15s; }
+  .nav-links a:hover { color: var(--signal); }
+  .nav-dropdown { position: relative; }
+  .nav-dropdown-btn {
+    background: none; border: none; cursor: pointer;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--text);
+    display: flex; align-items: center; gap: 6px;
+    padding: 0; transition: color 0.15s;
+  }
+  .nav-dropdown-btn:hover { color: var(--signal); }
+  .nav-dropdown-arrow { font-size: 8px; transition: transform 0.15s; }
+  .nav-dropdown.open .nav-dropdown-arrow { transform: rotate(180deg); }
+  .nav-dropdown-menu {
+    display: none;
+    position: absolute; top: calc(100% + 16px); right: 0;
+    background: var(--void-soft);
+    border: 1px solid var(--rule-strong);
+    min-width: 260px;
+    padding: 8px 0;
+    z-index: 100;
+  }
+  .nav-dropdown.open .nav-dropdown-menu { display: block; }
+  .nav-dropdown-menu a {
+    display: block; padding: 10px 18px;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--text-muted); text-decoration: none;
+    transition: color 0.15s, background 0.15s;
+  }
+  .nav-dropdown-menu a:hover { color: var(--signal); background: var(--void-mid); }
+  .dropdown-divider { height: 1px; background: var(--rule); margin: 6px 0; }
+  .dropdown-group-label {
+    display: block; padding: 6px 18px 4px;
+    font-family: 'DM Mono', monospace;
+    font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--text-dim);
+  }
 
   /* HERO */
   .hero {
@@ -402,7 +447,29 @@
 <nav>
   <div class="wrap nav-inner">
     <div class="nav-mark"><strong>B.E.A.M</strong> — Behavioral Diagnostic Framework</div>
-    <a class="nav-cta" href="https://www.meganoliver.com" target="_blank">By Megan Oliver →</a>
+    <div class="nav-links">
+      <a href="start-here.html">Start Here</a>
+      <div class="nav-dropdown">
+        <button class="nav-dropdown-btn">Learn <span class="nav-dropdown-arrow">↓</span></button>
+        <div class="nav-dropdown-menu">
+          <a href="how-to-use-beam.html">How to Use BEAM</a>
+          <div class="dropdown-divider"></div>
+          <span class="dropdown-group-label">Guides</span>
+          <a href="why-website-visitors-arent-converting.html">Why Visitors Aren't Converting</a>
+          <a href="messaging-problem-or-behavioral-barrier.html">Messaging or Barrier?</a>
+          <div class="dropdown-divider"></div>
+          <span class="dropdown-group-label">Case Studies</span>
+          <a href="beam-in-practice-emotional-state-conversion.html">Emotional State: +24%</a>
+          <a href="beam-in-practice-environmental-barrier-conversion.html">Environmental Barrier: +17%</a>
+          <div class="dropdown-divider"></div>
+          <span class="dropdown-group-label">Reference</span>
+          <a href="behavioral-marketing-glossary.html">Glossary</a>
+          <a href="behavioral-marketing-reading-list.html">Reading List</a>
+        </div>
+      </div>
+      <a href="beam-diagnostic-worksheet.html">Worksheet</a>
+      <a href="https://www.meganoliver.com" target="_blank">Megan Oliver ↗</a>
+    </div>
   </div>
 </nav>
 
@@ -772,6 +839,17 @@
         btn.nextElementSibling.hidden = false;
       }
     });
+  });
+</script>
+
+<script>
+  document.querySelector('.nav-dropdown-btn').addEventListener('click', function() {
+    this.closest('.nav-dropdown').classList.toggle('open');
+  });
+  document.addEventListener('click', function(e) {
+    if (!e.target.closest('.nav-dropdown')) {
+      document.querySelectorAll('.nav-dropdown').forEach(d => d.classList.remove('open'));
+    }
   });
 </script>
 
