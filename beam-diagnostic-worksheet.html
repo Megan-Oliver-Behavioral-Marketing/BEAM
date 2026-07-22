@@ -247,6 +247,32 @@
   .option-copy { display: block; color: var(--text-muted); font-size: 13px; line-height: 1.55; }
   .option input:checked + .option-card .option-label { color: var(--signal); }
 
+  .helper-box {
+    background: var(--void-mid);
+    border: 1px solid var(--rule-strong);
+    border-left: 3px solid var(--a);
+    padding: 20px 22px;
+    margin-bottom: 30px;
+  }
+  .helper-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--a);
+    display: block; margin-bottom: 10px;
+  }
+  .helper-box p {
+    font-size: 13px; line-height: 1.7;
+    color: var(--text-muted);
+    margin-bottom: 12px;
+  }
+  .helper-link {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--signal); text-decoration: none;
+    border-bottom: 1px solid rgba(200,240,74,0.3);
+    transition: border-color 0.15s;
+  }
+  .helper-link:hover { border-color: var(--signal); }
   .moment-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
   .hypothesis {
     padding: 28px;
@@ -417,6 +443,11 @@
       <div class="step-content">
         <h2>What are they experiencing right now?</h2>
         <p class="step-lead">Choose the emotional state most likely to influence this specific decision—not how the audience feels in general.</p>
+        <div class="helper-box">
+          <span class="helper-label">How to find this</span>
+          <p>Read reviews, support tickets, and survey responses for emotional language — words like "confused," "nervous," "not sure," or "frustrated" signal state. Watch session recordings at the point of abandon and note what happens right before someone leaves. Ask people who didn't convert: "What stopped you?" Their answer is usually an emotional state in disguise. If you don't have data yet, make your best assumption and flag it — then test it.</p>
+          <a class="helper-link" href="how-to-gather-evidence.html">Learn how to gather evidence →</a>
+        </div>
         <div class="field">
           <div class="option-grid three">
             <label class="option"><input type="radio" name="emotion" value="Confusion"><span class="option-card"><span class="option-label">Confusion</span><span class="option-copy">Slows action.</span></span></label>
@@ -442,6 +473,11 @@
       <div class="step-content">
         <h2>What is true at the point of decision?</h2>
         <p class="step-lead">Document the conditions surrounding the action. The same person can behave differently when the moment changes.</p>
+        <div class="helper-box">
+          <span class="helper-label">How to find this</span>
+          <p>Put yourself at the exact point of the action — the form page, the checkout screen, the moment someone opens the email. What is literally on the screen? What do they have to do next? What information is missing? What does the page ask them to commit to? For physical environments, walk through the experience yourself. For digital, use a session recording tool like Microsoft Clarity or Hotjar and watch what real users encounter. You are documenting conditions, not assumptions — describe only what is actually present.</p>
+          <a class="helper-link" href="how-to-gather-evidence.html">Learn how to gather evidence →</a>
+        </div>
         <div class="moment-grid">
           <div class="field"><label class="field-label" for="momentSee">What do they see?</label><textarea id="momentSee" name="momentSee"></textarea></div>
           <div class="field"><label class="field-label" for="momentKnow">What do they know?</label><textarea id="momentKnow" name="momentKnow"></textarea></div>
