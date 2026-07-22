@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How to Gather Behavioral Evidence | BEAM Framework</title>
+<meta name="description" content="Practical methods for finding the evidence you need to complete a BEAM diagnosis — including analytics, session recordings, customer interviews, and review mining.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://megan-oliver-behavioral-marketing.github.io/BEAM/how-to-gather-evidence.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="How to Gather Behavioral Evidence | BEAM Framework">
+<meta property="og:description" content="Practical methods for finding the evidence behind emotional state and decision moment.">
+<meta property="og:url" content="https://megan-oliver-behavioral-marketing.github.io/BEAM/how-to-gather-evidence.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --void: #0D0D0D;
+    --void-soft: #1A1A1A;
+    --void-mid: #252525;
+    --signal: #C8F04A;
+    --signal-dim: #A8CC3A;
+    --text: #F5F2ED;
+    --text-muted: #8A8478;
+    --text-dim: #5C5850;
+    --rule: rgba(245,242,237,0.1);
+    --rule-strong: rgba(245,242,237,0.2);
+    --b: #4A9EFF;
+    --e: #FF6B6B;
+    --a: #FFB347;
+    --m: #A78BFA;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--void);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.7;
+  }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 28px; }
+  a { color: inherit; }
+
+  nav {
+    border-bottom: 1px solid var(--rule);
+    padding: 20px 0;
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(13,13,13,0.96);
+    backdrop-filter: blur(12px);
+  }
+  .nav-inner { display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+  .nav-mark {
+    font-family: 'DM Mono', monospace;
+    font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--text-muted); text-decoration: none;
+  }
+  .nav-mark strong { color: var(--signal); font-weight: 500; }
+  .nav-links {
+    display: flex; align-items: center; gap: 22px;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--text);
+  }
+  .nav-links a { text-decoration: none; color: var(--text); transition: color 0.15s; }
+  .nav-links a:hover { color: var(--signal); }
+  .nav-dropdown { position: relative; }
+  .nav-dropdown-btn {
+    background: none; border: none; cursor: pointer;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--text);
+    display: flex; align-items: center; gap: 6px;
+    padding: 0; transition: color 0.15s;
+  }
+  .nav-dropdown-btn:hover { color: var(--signal); }
+  .nav-dropdown-arrow { font-size: 8px; transition: transform 0.15s; }
+  .nav-dropdown.open .nav-dropdown-arrow { transform: rotate(180deg); }
+  .nav-dropdown-menu {
+    display: none;
+    position: absolute; top: calc(100% + 16px); right: 0;
+    background: var(--void-soft);
+    border: 1px solid var(--rule-strong);
+    min-width: 260px; padding: 8px 0; z-index: 100;
+  }
+  .nav-dropdown.open .nav-dropdown-menu { display: block; }
+  .nav-dropdown-menu a {
+    display: block; padding: 10px 18px;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--text-muted); text-decoration: none;
+    transition: color 0.15s, background 0.15s;
+  }
+  .nav-dropdown-menu a:hover { color: var(--signal); background: var(--void-mid); }
+  .dropdown-divider { height: 1px; background: var(--rule); margin: 6px 0; }
+  .dropdown-group-label {
+    display: block; padding: 6px 18px 4px;
+    font-family: 'DM Mono', monospace;
+    font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--text-dim);
+  }
+
+  .hero {
+    padding: 88px 0 72px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .hero-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--text-dim); margin-bottom: 26px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .hero-label::before {
+    content: ""; display: inline-block;
+    width: 24px; height: 1px; background: var(--text-dim);
+  }
+  h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(46px, 7vw, 78px);
+    line-height: 1; letter-spacing: -0.02em;
+    max-width: 14ch; margin-bottom: 28px;
+  }
+  h1 em { color: var(--signal); font-style: italic; }
+  .dek { font-size: 18px; line-height: 1.65; color: var(--text-muted); max-width: 58ch; }
+  .dek strong { color: var(--text); font-weight: 500; }
+
+  .article-shell {
+    display: grid;
+    grid-template-columns: 220px minmax(0, 720px);
+    gap: 72px; padding: 72px 0 96px;
+  }
+  .aside { position: sticky; top: 104px; align-self: start; }
+  .aside-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--text-dim); margin-bottom: 12px;
+  }
+  .aside p { font-size: 13px; color: var(--text-muted); margin-bottom: 24px; }
+  .toc { list-style: none; border-top: 1px solid var(--rule-strong); }
+  .toc a {
+    display: block; padding: 12px 0;
+    border-bottom: 1px solid var(--rule);
+    font-family: 'DM Mono', monospace;
+    font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase;
+    color: var(--text-muted); text-decoration: none; transition: color 0.15s;
+  }
+  .toc a:hover { color: var(--signal); }
+
+  .article h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 36px; line-height: 1.1;
+    margin: 50px 0 18px; scroll-margin-top: 100px;
+  }
+  .article h2:first-child { margin-top: 0; }
+  .article h3 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 22px; margin: 30px 0 10px;
+  }
+  .article p { font-size: 16px; color: var(--text-muted); margin-bottom: 20px; }
+  .article ul { padding-left: 22px; margin: 0 0 24px; color: var(--text-muted); }
+  .article li { padding-left: 5px; margin-bottom: 10px; font-size: 15px; }
+  .article strong { color: var(--text); font-weight: 500; }
+  .article a { color: var(--signal); text-decoration: none; border-bottom: 1px solid rgba(200,240,74,0.3); }
+  .article a:hover { border-color: var(--signal); }
+
+  .answer {
+    padding: 24px 26px;
+    background: var(--void-soft);
+    border-left: 3px solid var(--signal);
+    margin-bottom: 36px;
+  }
+  .answer p { margin: 0; color: var(--text); font-size: 15px; }
+
+  /* METHOD CARDS */
+  .method-card {
+    background: var(--void-soft);
+    border: 1px solid var(--rule-strong);
+    padding: 28px;
+    margin-bottom: 1px;
+  }
+  .method-card:last-of-type { margin-bottom: 36px; }
+  .method-header {
+    display: flex; align-items: baseline;
+    justify-content: space-between; gap: 16px;
+    margin-bottom: 12px; flex-wrap: wrap;
+  }
+  .method-name {
+    font-family: 'DM Serif Display', serif;
+    font-size: 22px; color: var(--text);
+  }
+  .method-effort {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--text-dim); flex-shrink: 0;
+  }
+  .method-card p { font-size: 14px; color: var(--text-muted); margin-bottom: 12px; line-height: 1.7; }
+  .method-card p:last-child { margin-bottom: 0; }
+  .method-card strong { color: var(--text); font-weight: 500; }
+  .method-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase;
+    margin-bottom: 10px; display: block;
+  }
+  .method-tag.emotional { color: var(--e); }
+  .method-tag.moment { color: var(--m); }
+  .method-tag.both { color: var(--a); }
+
+  .assumption-box {
+    background: var(--void-mid);
+    border: 1px solid var(--rule-strong);
+    border-left: 3px solid var(--a);
+    padding: 24px 26px;
+    margin: 36px 0;
+  }
+  .assumption-box-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--a); display: block; margin-bottom: 10px;
+  }
+  .assumption-box p { font-size: 14px; color: var(--text-muted); margin-bottom: 0; line-height: 1.7; }
+  .assumption-box strong { color: var(--text); font-weight: 500; }
+
+  .article-cta {
+    margin-top: 58px; padding: 38px;
+    background: var(--void-soft);
+    border-top: 3px solid var(--signal);
+  }
+  .article-cta h2 { font-family: 'DM Serif Display', serif; font-size: 30px; margin: 0 0 12px; }
+  .article-cta p { font-size: 15px; color: var(--text-muted); max-width: 55ch; margin-bottom: 24px; }
+
+  .btn {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase;
+    padding: 14px 20px;
+    border: 1.5px solid var(--signal);
+    background: var(--signal); color: var(--void);
+    text-decoration: none; transition: background 0.15s, border-color 0.15s;
+  }
+  .btn:hover { background: var(--signal-dim); border-color: var(--signal-dim); }
+  .btn.secondary { background: transparent; color: var(--signal); }
+  .btn.secondary:hover { background: var(--signal); color: var(--void); }
+
+  .related { padding: 72px 0; border-top: 1px solid var(--rule); background: var(--void-soft); }
+  .related h2 { font-family: 'DM Serif Display', serif; font-size: 36px; margin-bottom: 28px; }
+  .related-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 1px; background: var(--rule-strong); border: 1px solid var(--rule-strong);
+  }
+  .related-card { padding: 28px; background: var(--void); text-decoration: none; transition: background 0.15s; }
+  .related-card:hover { background: var(--void-mid); }
+  .related-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-dim);
+  }
+  .related-card h3 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 22px; margin: 12px 0 8px; color: var(--text); transition: color 0.15s;
+  }
+  .related-card:hover h3 { color: var(--signal); }
+  .related-card p { font-size: 13px; color: var(--text-muted); }
+
+  footer { padding: 30px 0; border-top: 1px solid var(--rule); }
+  .foot-inner { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
+  .foot-copy {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-dim);
+  }
+  .foot-link {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--text-muted); text-decoration: none; transition: color 0.15s;
+  }
+  .foot-link:hover { color: var(--signal); }
+
+  @media (max-width: 800px) {
+    .article-shell { grid-template-columns: 1fr; gap: 36px; }
+    .aside { position: static; }
+    .toc { display: grid; grid-template-columns: repeat(2, 1fr); }
+    .related-grid { grid-template-columns: 1fr; }
+    .nav-links { display: none; }
+  }
+  @media (max-width: 560px) {
+    .hero { padding: 64px 0 52px; }
+    h1 { font-size: 44px; }
+    .article-shell { padding: 52px 0 72px; }
+    .toc { grid-template-columns: 1fr; }
+  }
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap nav-inner">
+    <a class="nav-mark" href="index.html"><strong>B.E.A.M</strong> — Behavioral Diagnostic Framework</a>
+    <div class="nav-links">
+      <a href="start-here.html">Start Here</a>
+      <div class="nav-dropdown">
+        <button class="nav-dropdown-btn">Learn <span class="nav-dropdown-arrow">↓</span></button>
+        <div class="nav-dropdown-menu">
+          <a href="how-to-use-beam.html">How to Use BEAM</a>
+          <div class="dropdown-divider"></div>
+          <span class="dropdown-group-label">Guides</span>
+          <a href="why-website-visitors-arent-converting.html">Why Visitors Aren't Converting</a>
+          <a href="messaging-problem-or-behavioral-barrier.html">Messaging or Barrier?</a>
+          <div class="dropdown-divider"></div>
+          <span class="dropdown-group-label">Case Studies</span>
+          <a href="beam-in-practice-emotional-state-conversion.html">Emotional State: +24%</a>
+          <a href="beam-in-practice-environmental-barrier-conversion.html">Environmental Barrier: +17%</a>
+          <div class="dropdown-divider"></div>
+          <span class="dropdown-group-label">Reference</span>
+          <a href="behavioral-marketing-glossary.html">Glossary</a>
+          <a href="behavioral-marketing-reading-list.html">Reading List</a>
+        </div>
+      </div>
+      <a href="beam-diagnostic-worksheet.html">Worksheet</a>
+      <a href="https://www.meganoliver.com" target="_blank">Megan Oliver ↗</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="hero-label">Evidence Guide</div>
+    <h1>How to find what you <em>actually need.</em></h1>
+    <p class="dek">A BEAM diagnosis is only as useful as the evidence behind it. These are the practical methods for finding emotional state and decision moment data — <strong>before you guess.</strong></p>
+  </div>
+</header>
+
+<main class="wrap article-shell">
+  <aside class="aside">
+    <div class="aside-label">Methods</div>
+    <p>Organized by what each method is best at finding.</p>
+    <ol class="toc">
+      <li><a href="#before-you-start">Before you start</a></li>
+      <li><a href="#analytics">Analytics</a></li>
+      <li><a href="#recordings">Session recordings</a></li>
+      <li><a href="#customer-language">Customer language</a></li>
+      <li><a href="#interviews">Interviews</a></li>
+      <li><a href="#surveys">Surveys</a></li>
+      <li><a href="#direct-observation">Direct observation</a></li>
+      <li><a href="#no-data">When you have no data</a></li>
+    </ol>
+  </aside>
+
+  <article class="article">
+
+    <h2 id="before-you-start">Before you start</h2>
+    <div class="answer">
+      <p>You are looking for two things: what the person is feeling at the decision moment, and what conditions are present at that moment. These are different questions that require different methods. Not every method applies to every situation — choose based on what you can realistically access right now.</p>
+    </div>
+    <p>Evidence does not have to be perfect to be useful. A single session recording of someone abandoning a form tells you more than a week of hypothesizing about why it happens. Start with what you have and flag what you are assuming.</p>
+
+    <h2 id="analytics">Analytics</h2>
+    <p>Analytics tells you <strong>where</strong> behavior breaks — not why. Use it to locate the problem before you diagnose it.</p>
+
+    <div class="method-card">
+      <span class="method-tag both">Useful for: Emotional state + Decision moment</span>
+      <div class="method-header">
+        <div class="method-name">Drop-off and funnel analysis</div>
+        <span class="method-effort">Low effort</span>
+      </div>
+      <p>Find the exact step where people stop. In Google Analytics, look at funnel visualizations or page-level drop-off rates. The page someone leaves from is usually where the barrier exists — ability, environmental, or motivational. High exit rates on a specific field, section, or step are behavioral data.</p>
+      <p><strong>What to look for:</strong> Where does the largest volume of people leave? Is it consistent across devices? Does it happen at a specific field, price reveal, or commitment ask?</p>
+    </div>
+
+    <div class="method-card">
+      <span class="method-tag moment">Useful for: Decision moment</span>
+      <div class="method-header">
+        <div class="method-name">Time on page and scroll depth</div>
+        <span class="method-effort">Low effort</span>
+      </div>
+      <p>Low time on page suggests people are not finding what they expected. High time on page with low conversion suggests they found something — confusion, uncertainty, or a missing piece — that stopped them from acting. Scroll depth shows how far people get before they disengage.</p>
+      <p><strong>What to look for:</strong> Are people reaching the call to action? Are they spending time near the pricing or commitment section and then leaving?</p>
+    </div>
+
+    <div class="method-card">
+      <span class="method-tag moment">Useful for: Decision moment</span>
+      <div class="method-header">
+        <div class="method-name">Device and timing breakdowns</div>
+        <span class="method-effort">Low effort</span>
+      </div>
+      <p>Significant differences in conversion by device often signal an environmental barrier — something that works on desktop but creates friction on mobile. Timing differences can reveal motivational patterns — lower conversion on certain days or times may indicate the offer is not reaching people at the right moment.</p>
+    </div>
+
+    <h2 id="recordings">Session recordings</h2>
+    <p>Session recordings show you <strong>what actually happens</strong> at the decision moment. They are one of the most direct evidence sources available for diagnosing both emotional state and environmental barriers.</p>
+
+    <div class="method-card">
+      <span class="method-tag both">Useful for: Emotional state + Decision moment</span>
+      <div class="method-header">
+        <div class="method-name">Watch abandonment sessions</div>
+        <span class="method-effort">Medium effort</span>
+      </div>
+      <p>Tools like Microsoft Clarity, Hotjar, or FullStory record real user sessions. Filter for sessions where the person reached the key action but did not complete it. Watch what happens in the 30–60 seconds before they leave. Look for hesitation patterns — repeated scrolling, hovering over a field without filling it, clicking back, or reading the same section multiple times.</p>
+      <p><strong>What to look for:</strong> Where does the mouse stop moving? What does the person read more than once? What field or section triggers the exit?</p>
+      <p><strong>What it tells you about emotional state:</strong> Repeated scrolling without action often signals confusion or uncertainty. Clicking back to an earlier page often signals a missing piece of information. Hovering over a commitment field and leaving often signals anxiety or skepticism about what happens next.</p>
+    </div>
+
+    <div class="method-card">
+      <span class="method-tag moment">Useful for: Decision moment</span>
+      <div class="method-header">
+        <div class="method-name">Heatmaps and click maps</div>
+        <span class="method-effort">Low effort</span>
+      </div>
+      <p>Heatmaps show where attention concentrates and where it does not reach. Click maps show what people interact with versus what they ignore. Together they reveal which parts of the decision environment are doing work and which are invisible.</p>
+      <p><strong>What to look for:</strong> Is the primary call to action in a cold zone? Are people clicking on non-clickable elements — a sign they expect something to be there that is not? Is attention concentrated on a section you did not expect?</p>
+    </div>
+
+    <h2 id="customer-language">Customer language</h2>
+    <p>Reviews, support tickets, and cancellation responses contain <strong>emotional language people use unprompted</strong>. This is your most direct window into emotional state — not what you think they feel, but the words they actually use.</p>
+
+    <div class="method-card">
+      <span class="method-tag emotional">Useful for: Emotional state</span>
+      <div class="method-header">
+        <div class="method-name">Review and feedback mining</div>
+        <span class="method-effort">Low effort</span>
+      </div>
+      <p>Read reviews on Google, Yelp, App Store, Trustpilot, or wherever your customers leave them. Read one-star and three-star reviews specifically — they contain friction and emotional language. Look for words that describe a feeling, not just a feature: "I wasn't sure," "I was nervous about," "it wasn't clear," "I felt like."</p>
+      <p><strong>What to look for:</strong> Emotional descriptors. Unmet expectations. Questions the person had that were not answered before they had to decide.</p>
+    </div>
+
+    <div class="method-card">
+      <span class="method-tag emotional">Useful for: Emotional state</span>
+      <div class="method-header">
+        <div class="method-name">Support ticket analysis</div>
+        <span class="method-effort">Low effort</span>
+      </div>
+      <p>Support tickets are often questions that people had at the decision moment but could not find answers to. A high volume of questions about a specific topic — pricing, cancellation policy, what happens after signup — tells you what information is missing at the point of commitment and what emotional state that gap creates.</p>
+      <p><strong>What to look for:</strong> Recurring questions. Expressions of hesitation or concern. Language that signals the person wanted to act but needed something first.</p>
+    </div>
+
+    <h2 id="interviews">Interviews</h2>
+    <p>Interviews give you the <strong>most detailed picture of emotional state</strong> because you can ask follow-up questions. They are higher effort but often the most revealing method available.</p>
+
+    <div class="method-card">
+      <span class="method-tag emotional">Useful for: Emotional state</span>
+      <div class="method-header">
+        <div class="method-name">Non-converter interviews</div>
+        <span class="method-effort">High effort</span>
+      </div>
+      <p>Talk to people who reached the action but did not complete it. Ask: "What stopped you?" and then be quiet. Do not offer options or explanations. Let them describe what happened in their own words. The first answer is usually a rationalization — the real answer usually comes after a follow-up question.</p>
+      <p><strong>Good follow-up questions:</strong> "What were you thinking when you saw that?" / "What would have made you feel more comfortable?" / "Was there a specific moment when you decided not to continue?"</p>
+    </div>
+
+    <div class="method-card">
+      <span class="method-tag both">Useful for: Emotional state + Decision moment</span>
+      <div class="method-header">
+        <div class="method-name">Recent converter interviews</div>
+        <span class="method-effort">High effort</span>
+      </div>
+      <p>Talk to people who completed the action recently — within the last two weeks if possible, while the memory is fresh. Ask them to walk you through what they were thinking at each step. Ask specifically: "Was there a moment where you almost stopped?" Their answer reveals the emotional state that nearly blocked the action and what resolved it.</p>
+    </div>
+
+    <h2 id="surveys">Surveys</h2>
+    <p>Surveys are useful when you need to <strong>validate a hypothesis at scale</strong> or when interviews are not feasible.</p>
+
+    <div class="method-card">
+      <span class="method-tag emotional">Useful for: Emotional state</span>
+      <div class="method-header">
+        <div class="method-name">Exit survey</div>
+        <span class="method-effort">Medium effort</span>
+      </div>
+      <p>A single question triggered when someone is about to leave a key page: "What stopped you from completing this today?" with three or four response options and an open field. Keep it to one question — anything more and completion rates drop sharply. Even 20–30 responses can reveal a consistent pattern.</p>
+      <p><strong>Response options to test:</strong> I wasn't sure what would happen next / I needed more information / The timing wasn't right / Something else (open field).</p>
+    </div>
+
+    <div class="method-card">
+      <span class="method-tag both">Useful for: Emotional state + Decision moment</span>
+      <div class="method-header">
+        <div class="method-name">Post-conversion survey</div>
+        <span class="method-effort">Low effort</span>
+      </div>
+      <p>Ask converters one question immediately after they complete the action: "Was there anything that almost stopped you from completing this?" This surfaces the near-misses — the conditions that were present at the decision moment that almost became barriers. It is one of the fastest ways to find environmental and emotional friction you did not know existed.</p>
+    </div>
+
+    <h2 id="direct-observation">Direct observation</h2>
+    <p>For physical environments or any situation where the decision moment happens in person, <strong>direct observation is irreplaceable</strong>.</p>
+
+    <div class="method-card">
+      <span class="method-tag both">Useful for: Emotional state + Decision moment</span>
+      <div class="method-header">
+        <div class="method-name">Walk the experience yourself</div>
+        <span class="method-effort">Low effort</span>
+      </div>
+      <p>Go through the experience as if you were the customer. For a physical environment — walk through the entrance, sit in the waiting area, experience the moment before the sales conversation begins. For a digital environment — complete the flow on the device your customer most commonly uses, without any special access or knowledge. Notice what is missing. Notice what creates hesitation.</p>
+      <p><strong>What to look for:</strong> What information do you need that is not available? What does the environment communicate about the offer before anyone says a word? What would make you less comfortable committing?</p>
+    </div>
+
+    <div class="method-card">
+      <span class="method-tag both">Useful for: Emotional state + Decision moment</span>
+      <div class="method-header">
+        <div class="method-name">Usability testing</div>
+        <span class="method-effort">Medium effort</span>
+      </div>
+      <p>Ask someone unfamiliar with the product or process to complete the action while thinking aloud. Do not help them. Do not explain things. Listen to what confuses them, what they look for that is not there, and what makes them hesitate. Five sessions of unmoderated usability testing will surface more decision-moment evidence than most analytics reports.</p>
+    </div>
+
+    <h2 id="no-data">When you have no data</h2>
+    <div class="assumption-box">
+      <span class="assumption-box-label">Working without evidence</span>
+      <p>If you are diagnosing a new campaign, a new product, or a situation where no behavioral data exists yet — make your best assumption, <strong>label it explicitly as an assumption</strong>, and design a test that could prove it wrong. An assumption treated as a fact produces an untestable intervention. An assumption treated as a hypothesis produces a test worth running.</p>
+      <p style="margin-top: 12px;">Write it as: "I am assuming the emotional state is [X] because [Y]. This assumption would be disproved if [Z]." Then run the campaign or the intervention and use what you learn to sharpen the next diagnosis.</p>
+    </div>
+
+    <div class="article-cta">
+      <h2>Ready to run the diagnosis.</h2>
+      <p>Take what you found back to the BEAM worksheet and fill in the emotional state and decision moment sections with evidence — or clearly labeled assumptions.</p>
+      <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+        <a class="btn" href="beam-diagnostic-worksheet.html">Return to the worksheet →</a>
+        <a class="btn secondary" href="how-to-use-beam.html">Review the full process →</a>
+      </div>
+    </div>
+
+  </article>
+</main>
+
+<section class="related">
+  <div class="wrap">
+    <h2>Continue the diagnosis</h2>
+    <div class="related-grid">
+      <a class="related-card" href="beam-diagnostic-worksheet.html">
+        <div class="related-tag">Tool</div>
+        <h3>Back to the worksheet</h3>
+        <p>Apply what you found to the full BEAM diagnosis.</p>
+      </a>
+      <a class="related-card" href="how-to-use-beam.html">
+        <div class="related-tag">Guide</div>
+        <h3>How to use BEAM</h3>
+        <p>Review the full seven-step diagnostic process.</p>
+      </a>
+      <a class="related-card" href="why-website-visitors-arent-converting.html">
+        <div class="related-tag">Conversion guide</div>
+        <h3>Why visitors aren't converting</h3>
+        <p>See how evidence informs a conversion diagnosis.</p>
+      </a>
+    </div>
+  </div>
+</section>
+
+<script>
+  document.querySelectorAll('.nav-dropdown-btn').forEach(btn => {
+    btn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      const dropdown = this.closest('.nav-dropdown');
+      const isOpen = dropdown.classList.contains('open');
+      document.querySelectorAll('.nav-dropdown').forEach(d => d.classList.remove('open'));
+      if (!isOpen) dropdown.classList.add('open');
+    });
+  });
+  document.addEventListener('click', function(e) {
+    if (!e.target.closest('.nav-dropdown')) {
+      document.querySelectorAll('.nav-dropdown').forEach(d => d.classList.remove('open'));
+    }
+  });
+</script>
+
+<footer>
+  <div class="wrap foot-inner">
+    <div class="foot-copy">B.E.A.M Framework — © Megan Oliver 2026</div>
+    <a class="foot-link" href="https://www.meganoliver.com" target="_blank">Created by Megan Oliver →</a>
+  </div>
+</footer>
+
+</body>
+</html>
